@@ -1,0 +1,127 @@
+<!-- 
+    [진행상황]
+
+    [100%]  1. 설문 페이지 프레임 제작
+            2. 로그인 시 어떤 설문 페이지를 들어갈 것인지 고르는 중간다리 역할의 페이지 제작
+    [40%]   3. 모비우스 및 DB에 업로드 하는 코드 작성 필요
+            4. 회원가입 및 로그인 시 입력 내용 겁증 코드 작성 필요
+            5. 회원가입 및 로그인 시 입력 폼 사용자 편의성 최적화 필요
+            6. 로그인 후 설문페이지에서 자신의 아이디가 담긴 정보를 쿠키나 기타 방법을 통해 저장해야 이를 데이터 업로드 시 활용 가능
+            6. 관리자 페이지 제작(DLC)
+
+
+-->
+
+
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>KNIH</title>
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+
+<body>
+    <style>
+        td,
+        h4 {
+            text-align: center;
+        }
+
+        tbody tr td:first-child {
+            text-align: left;
+        }
+
+        input[type='radio'] {
+            visibility: hidden;
+        }
+
+        input[type='radio']:after {
+            width: 1.5em;
+            height: 1.5em;
+
+            border-radius: 0.75em;
+            background-color: #fff;
+            content: '';
+            display: inline-block;
+            visibility: visible;
+            border: 2px solid #8d8d8e;
+        }
+
+        input[type='radio']:checked:after {
+
+            background-color: #007bff;
+            content: '';
+            display: inline-block;
+            visibility: visible;
+            border: 2px solid #8d8d8e;
+
+        }
+    </style>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>원데이 설문 What is your mood?</h4>
+                <img src="static/mood.png"width="100%" height="50%" />
+                <div class="table-responsive" margin="20">
+                    <form id="research" class="form-horizontal" method="POST" action="/survey/day">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>오늘의 기분</td>
+
+                                    <td>나빠요 (Bad)</td>
+                                    <td>좀 별로에요 (Poor)</td>
+                                    <td>괜찮아요 (Okay)</td>
+                                    <td>좋아요 (Good)</td>
+                                    <td>아주 좋아요 (Great)</td>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr id="s1">
+                                    <td>오늘의 기분은 어떠신가요?</td>
+
+                                    <td><input class="skin" type="radio" name="s1" value="1" /></td>
+                                    <td><input class="skin" type="radio" name="s1" value="2" /></td>
+                                    <td><input class="skin" type="radio" name="s1" value="3" /></td>
+                                    <td><input class="skin" type="radio" name="s1" value="4" /></td>
+                                    <td><input class="skin" type="radio" name="s1" value="5" /></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <!-- <input id="submit" type="submit" value="제출"> -->
+                        <button id="submit"  class="btn btn-primary" style="width: 100%;" data-target="#result">제출하기</button>
+                        
+                    </form>
+                    <!-- <button id="submit" type="button" class="btn btn-primary" style="width: 100%;" data-target="#result">제출하기</button> -->
+
+                    <!-- <button id="summit1" class="btn btn-primary" data-title="제출하기" style="width: 100%;"
+                        data-toggle="modal" data-target="#result">제출하기</button> -->
+                    
+                </div>
+
+                <!-- /.modal-content -->
+
+            </div>
+
+            <!-- /.modal-dialog -->
+
+        </div>
+
+        
+
+</body>
+
+</html>

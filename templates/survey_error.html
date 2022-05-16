@@ -1,0 +1,45 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+<div class="survays">
+    <span class="survaysName">1번 설문조사</span>
+    <input type="radio" name="survay1" value="5" />만족
+    <input type="radio" name="survay1" value="4" />다소만족
+    <input type="radio" name="survay1" value="3" />보통
+    <input type="radio" name="survay1" value="2" />다소미흡
+    <input type="radio" name="survay1" value="1" />매우미흡
+</div>
+
+<div class="survays">
+    <span class="survaysName">2번 설문조사</span>
+    <input type="radio" name="survay2" value="5" />만족
+    <input type="radio" name="survay2" value="4" />다소만족
+    <input type="radio" name="survay2" value="3" />보통
+    <input type="radio" name="survay2" value="2" />다소미흡
+    <input type="radio" name="survay2" value="1" />매우미흡
+</div>
+
+<div class="survays">
+    <span class="survaysName">3번 설문조사</span>
+    <input type="radio" name="survay3" value="5" />만족
+    <input type="radio" name="survay3" value="4" />다소만족
+    <input type="radio" name="survay3" value="3" />보통
+    <input type="radio" name="survay3" value="2" />다소미흡
+    <input type="radio" name="survay3" value="1" />매우미흡
+</div>
+
+<button class="survay-btn">설문</button>
+
+
+<script>
+$('button.survay-btn').click(function(){//버튼을 클릭하면
+    var error='';
+    $('div.survays').each(function(){
+        var survaysName=$(this).find('span.survaysName').text();//해당설문이름 가져오기
+        var checkBtn=$(this).find('input[type="radio"]:checked');//체크한 것들
+        if(!checkBtn.length){//체크하지 않았으면
+            error+=survaysName+'를 선택하시기 바랍니다.\n';//경고문저장
+        }
+    });
+    if(error) alert(error);//경고문이 있으면 경고하기
+});
+</script>

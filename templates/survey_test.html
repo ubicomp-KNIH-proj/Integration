@@ -1,0 +1,3003 @@
+<!DOCTYPE HTML>
+<!-- 표시 언어 지정 -->
+<html lang="ko">
+
+<!-- 헤더 정의 부분 -->
+<head>
+    <title>HTML TEST</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+
+
+    <!-- 반응형 뷰 포트를 사용하기 위함 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
+
+
+    <!-- Jquery CDN 로드 : 항상 최신 버전 사용 -->    
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script> 
+
+    <!-- 구글 폰트 적용하기 위함 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+    <!-- sweet alert 라이브러리 -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
+
+    <!-- 외부 CSS 스타일 지정 -->
+    <!-- <link rel="stylesheet" type="text/css" href=../WebProject/css/kwon.css>     -->
+    <!-- 내부 CSS 스타일 지정 -->
+    <style>
+      /* [html, body 영역 스타일 지정] */
+      html, body {
+         width : 100%;
+         height : 100%;
+         margin : 0;
+         padding : 0;
+         border : none;
+
+         overflow:scroll-y; 
+         -webkit-overflow-scrolling:touch;               
+      }
+      /* [body 스크롤바 메인 스타일 지정] */
+      body::-webkit-scrollbar {         
+         width: 0px;               
+         background-color: #c1c1c1;
+      }
+      /* [body 스크롤바 thumb 스타일 지정] */
+      body::-webkit-scrollbar-thumb {               
+         background-color: #444444;
+      }
+      /* [body 전체 컴포넌트 공통 스타일 지정] */
+      * {
+         font-family: 'Nanum Gothic', sans-serif;
+      }
+
+
+
+      /* [라디오 버튼 커스텀 스타일 변경 실시] */
+      input[type='radio'] {
+         -webkit-appearance:none;
+         width:17px;
+         height:17px;
+         border:1px solid darkgray;
+         border-radius:50%;
+         outline:none;
+         background:#ffffff;
+      }
+      input[type='radio']:before {
+         content:'';
+         display:block;
+         width:70%;
+         height:70%;
+         margin: 15% auto;
+         border-radius:50%;  
+      }
+      input[type='radio']:checked:before {
+         background:#007bff;
+      }
+
+      /* [sweet alert 커스텀 사이즈] */
+        .swal-wide{
+            width:250px !important;
+        }
+
+      /* [div position fixed 고정 표시 설정] */
+      /*
+      [div 태그쪽 추가 지정 사항]
+      width, height, margin, padding, border, background-color
+      필요시 - top, left 다시 커스텀 수정
+      */
+      .cDivFixedFull {
+         float: top;
+         position: fixed;
+         top: 0;
+         left: 0;
+      }
+
+      /* [div position relative 가로 위치 정렬] */
+      /*
+      [div 태그쪽 추가 지정 사항]
+      width, height, margin, padding, border, background-color
+      필요시 - top, left 다시 커스텀 수정
+      */
+      .cDivRelativeW {
+         float: left;
+         position: relative;
+         top: 0;
+         left: 0;
+      }
+
+      /* [div position relative 세로 위치 정렬] */
+      /*
+      [div 태그쪽 추가 지정 사항]
+      width, height, margin, padding, border, background-color
+      필요시 - top, left 다시 커스텀 수정
+      */
+      .cDivRelativeH {
+         float: top;
+         position: relative;
+         top: 0;
+         left: 0;
+      }
+
+      /* [공통 : div p 태그 포함 - 텍스트 text 히든 hidden 숨김 처리] */
+      /*
+      [div 태그쪽 추가 지정 사항]
+      width, height, margin, padding, border, background-color
+      float, position, top, left
+      */
+      .cDivPtagHmHidden {
+         /* p 태그 수직 정렬 위함 */
+         display: table;
+
+         /* p 태그 길이 초과시 히든 처리 위함 */
+         table-layout: fixed;
+
+         /* 블루 하이라이트 제거 */
+         -webkit-tap-highlight-color : rgba(0,0,0,0); 
+      }
+      /* [공통 : p 태그 - 텍스트 히든 처리] */
+      /*
+      [p 태그쪽 추가 지정 사항]
+      color, font-size, font-style [기울기], font-weight [굵기]
+      font-family [글씨체]
+      text-align : left, right, center, justify (문단 양쪽)
+      */
+      .cPtagHmHidden {    
+         /* 텍스트 수평 정렬 실시 */
+         text-align : center; 
+
+         /* 텍스트 수직 정렬 실시 */
+         vertical-align: middle;
+
+         /* p 태그 수직 정렬을 위한 display 설정 */
+         display: table-cell;
+
+         /* p 태그 길이 초과시 히든 처리 위함 */
+         table-layout: fixed;
+
+         /* p 태그 길이 초과시 히든 처리 위함 */
+         overflow : hidden;
+         text-overflow : ellipsis;
+         white-space : nowrap;         
+      }
+
+      /* [공통 : div p 태그 포함 - 텍스트 text 표시] */
+      /*
+      [div 태그쪽 추가 지정 사항]
+      width, height, margin, padding, border, background-color
+      float, position, top, left
+      */
+      .cDivPtagHmVisible {
+         /* p 태그 수직 정렬 위함 */
+         display: table;
+
+         /* p 태그 길이 초과시 히든 처리 위함 */
+         table-layout: fixed;
+
+         /* 블루 하이라이트 제거 */
+         -webkit-tap-highlight-color : rgba(0,0,0,0); 
+      }
+      /* [공통 : p 태그] */
+      /*
+      [p 태그쪽 추가 지정 사항]
+      color, font-size, font-style [기울기], font-weight [굵기]
+      font-family [글씨체]
+      text-align : left, right, center, justify (문단 양쪽)
+      */
+      .cPtagHmVisible {
+         /* 텍스트 수평 정렬 실시 */         
+         text-align : center; 
+
+         /* 텍스트 수직 정렬 실시 */
+         vertical-align: middle;
+
+         /* p 태그 수직 정렬을 위한 display 설정 */
+         display: table-cell;
+      }
+
+      /* [공통 : 커서 cursor 스타일 지정] */      
+      .cCursorPointer {
+         /* 기본 화살표 모양 */
+         cursor: pointer;
+      }
+      .cCursorDefault {
+         /* 포인터 손 모양 */
+         cursor: default;
+      }
+      .cCursorHelp {
+         /* 물음표 모양 */
+         cursor: help;
+      }
+      .cCursorMove {
+         /* 이동 모양 */
+         cursor: move;
+      }
+      .cCursorWait {
+         /* 모래 시계 모양 */
+         cursor: wait;
+      }
+      .cCursorCrosshair {
+         /* 십자선 모양 */
+         cursor: crosshair;
+      }
+      .cCursorProgress {
+         /* 기본 + 모래 시계 모양 */
+         cursor: progress;
+      }
+
+      /* [공통 : div 배경 이미지 background image 사이즈 지정] */
+      /*
+      [div 태그쪽 추가 지정 사항]
+      background-image : url(../assets/image/white_before_icon.png); : 경로 지정해야한다
+      */
+      .cBgImageCenterSize {
+         /* 반복 표시 안함 */
+         background-repeat : no-repeat;
+
+         /* 가로 중앙 정렬 실시 */
+         background-position : center center;
+
+         /* 사이즈 가로, 세로 설정 */
+         background-size : 90% 100%;
+      }
+      .cBgImageLeftSize {
+         /* 반복 표시 안함 */
+         background-repeat : no-repeat;
+
+         /* 가로 왼쪽 정렬 실시 */
+         background-position : left center;
+
+         /* 사이즈 가로, 세로 설정 */
+         background-size : 80% 100%;
+      }
+      .cBgImageRightSize {
+         /* 반복 표시 안함 */
+         background-repeat : no-repeat;
+
+         /* 가로 왼쪽 정렬 실시 */
+         background-position : right center;
+
+         /* 사이즈 가로, 세로 설정 */
+         background-size : 80% 100%;
+      }
+
+
+
+
+
+
+
+
+
+      /* [공통 : 검정색 배경 불투명도 설정 rgba , opacity - 자식에게 적용 안됨] */
+      .cBgOpacityBlack_3 {
+         background-color:rgba(0, 0, 0, 0.3);
+      }
+      .cBgOpacityBlack_5 {
+         background-color:rgba(0, 0, 0, 0.5);
+      }
+      .cBgOpacityBlack_7 {
+         background-color:rgba(0, 0, 0, 0.5);
+      }
+
+
+
+
+
+
+
+      
+
+
+
+
+      /* [공통 : background-color 배경 색상 정의] */
+      .cBgNull {
+         background-color: #00000000;
+      }
+      .cBgBlueBold {
+         background-color: #076ede;
+      }
+      .cBgGrayBold {
+         background-color: #555d63;
+      }
+      .cBgGreenBold {
+         background-color: #238e3c;
+      }
+      .cBgRedBold {
+         background-color: #bb2533;
+      }
+      .cBgYellowBold {
+         background-color: #deab11;
+      }
+      .cBgSkyBold {
+         background-color: #12889a;
+      }
+      .cBgWhiteBold {
+         background-color: #e5e5e6;
+      }
+      .cBgBlackBold {
+         background-color: #000000;
+      }
+      .cBgPupleBold {
+         background-color: #773191;
+      }
+      .cBgOrangeBold {
+         background-color: #f05624;
+      }
+      .cBgPinkBold {
+         background-color: #f47a7e;
+      }
+
+      .cBgBlueMiddle {
+         background-color: #007bff;
+      }
+      .cBgGrayMiddle {
+         background-color: #6c757d;
+      }
+      .cBgGreenMiddle {
+         background-color: #28a745;
+      }
+      .cBgRedMiddle {
+         background-color: #dc3545;
+      }
+      .cBgYellowMiddle {
+         background-color: #ffc107;
+      }
+      .cBgSkyMiddle {
+         background-color: #17a2b8;
+      }
+      .cBgWhiteMiddle {
+         background-color: #f8f9fa;
+      }
+      .cBgBlackMiddle {
+         background-color: #343a40;
+      }
+      .cBgPupleMiddle {
+         background-color: #9f4098;
+      }
+      .cBgOrangeMiddle {
+         background-color: #f78d1f;
+      }
+      .cBgPinkMiddle {
+         background-color: #f68d91;
+      }
+
+      .cBgBlueLight {
+         background-color: #3d98fa;
+      }
+      .cBgGrayLight {
+         background-color: #b1b5b8;
+      }
+      .cBgGreenLight {
+         background-color: #48d368;
+      }
+      .cBgRedLight {
+         background-color: #f17480;
+      }
+      .cBgYellowLight {
+         background-color: #f8d772;
+      }
+      .cBgSkyLight {
+         background-color: #4dd0e5;
+      }
+      .cBgWhiteLight {
+         background-color: #ffffff;
+      }
+      .cBgBlackLight {
+         background-color: #5f6060;
+      }
+      .cBgPupleLight {
+         background-color: #bd97c8;
+      }
+      .cBgOrangeLight {
+         background-color: #fac68d;
+      }
+      .cBgPinkLight {
+         background-color: #f8b1b3;
+      }
+
+
+
+
+
+
+
+
+
+
+      /* [공통 : 마우스 hover 올림 시 배경 색상 background color 변경] */
+      .cMouseHoverBgBlueBold:hover {
+         background-color: #076ede;
+      }
+      .cMouseHoverBgGrayBold:hover {
+         background-color: #555d63;
+      }
+      .cMouseHoverBgGreenBold:hover {
+         background-color: #238e3c;
+      }
+      .cMouseHoverBgRedBold:hover {
+         background-color: #bb2533;
+      }
+      .cMouseHoverBgYellowBold:hover {
+         background-color: #deab11;
+      }
+      .cMouseHoverBgSkyBold:hover {
+         background-color: #12889a;
+      }
+      .cMouseHoverBgWhiteBold:hover {
+         background-color: #e5e5e6;
+      }
+      .cMouseHoverBgBlackBold:hover {
+         background-color: #292f34;
+      }
+      .cMouseHoverBgPupleBold:hover {
+         background-color: #773191;
+      }
+      .cMouseHoverBgOrangeBold:hover {
+         background-color: #f05624;
+      }
+      .cMouseHoverBgPinkBold:hover {
+         background-color: #f47a7e;
+      }
+
+
+
+
+
+
+
+
+
+      /* [공통 : shadow dox 박스 그림자 여부 설정] */
+      .cShadowBoxBlue1px {
+         /* box shadow 그림자 설정 */
+         box-shadow: 1px 1px 1px 1px #076ede;  
+      }
+      .cShadowBoxBlue2px {
+         /* box shadow 그림자 설정 */
+         box-shadow: 2px 2px 2px 2px #076ede;  
+      }
+      .cShadowBoxBlue3px {
+         /* box shadow 그림자 설정 */
+         box-shadow: 3px 3px 3px 3px #076ede;  
+      }
+
+      .cShadowBoxGray1px {
+         /* box shadow 그림자 설정 */
+         box-shadow: 1px 1px 1px 1px #cccccc;  
+      }
+      .cShadowBoxGray2px {
+         /* box shadow 그림자 설정 */
+         box-shadow: 2px 2px 2px 2px #cccccc;  
+      }
+      .cShadowBoxGray3px {
+         /* box shadow 그림자 설정 */
+         box-shadow: 3px 3px 3px 3px #cccccc;  
+      }
+
+      .cShadowBoxBlack1px {
+         /* box shadow 그림자 설정 */
+         box-shadow: 1px 1px 1px 1px #000000;  
+      }
+      .cShadowBoxBlack2px {
+         /* box shadow 그림자 설정 */
+         box-shadow: 2px 2px 2px 2px #000000;  
+      }
+      .cShadowBoxBlack3px {
+         /* box shadow 그림자 설정 */
+         box-shadow: 3px 3px 3px 3px #000000;  
+      }
+
+
+
+
+
+      
+
+
+
+
+      /* [공통 : background 그라데이션 gradient 색상 정의] */
+      .cBgGradientBlueTop {
+         background : linear-gradient(to bottom, #076ede, #3d98fa);
+      }
+      .cBgGradientBlueLeft {
+         background : linear-gradient(to left, #076ede, #3d98fa);
+      }
+      .cBgGradientBlueRight {
+         background : linear-gradient(to right, #076ede, #3d98fa);
+      }
+      .cBgGradientBlueBottom {
+         background : linear-gradient(to top, #076ede, #3d98fa);
+      }
+
+      .cBgGradientGrayTop {
+         background : linear-gradient(to bottom, #555d63, #b1b5b8);
+      }
+      .cBgGradientGrayLeft {
+         background : linear-gradient(to left, #555d63, #b1b5b8);
+      }
+      .cBgGradientGrayRight {
+         background : linear-gradient(to right, #555d63, #b1b5b8);
+      }
+      .cBgGradientGrayBottom {
+         background : linear-gradient(to top, #555d63, #b1b5b8);
+      }
+
+      .cBgGradientGreenTop {
+         background : linear-gradient(to bottom, #238e3c, #48d368);
+      }
+      .cBgGradientGreenLeft {
+         background : linear-gradient(to left, #238e3c, #48d368);
+      }
+      .cBgGradientGreenRight {
+         background : linear-gradient(to right, #238e3c, #48d368);
+      }
+      .cBgGradientGreenBottom {
+         background : linear-gradient(to top, #238e3c, #48d368);
+      }
+
+      .cBgGradientRedTop {
+         background : linear-gradient(to bottom, #bb2533, #f17480);
+      }
+      .cBgGradientRedLeft {
+         background : linear-gradient(to left, #bb2533, #f17480);
+      }
+      .cBgGradientRedRight {
+         background : linear-gradient(to right, #bb2533, #f17480);
+      }
+      .cBgGradientRedBottom {
+         background : linear-gradient(to top, #bb2533, #f17480);
+      }
+
+      .cBgGradientYellowTop {
+         background : linear-gradient(to bottom, #deab11, #f8d772);
+      }
+      .cBgGradientYellowLeft {
+         background : linear-gradient(to left, #deab11, #f8d772);
+      }
+      .cBgGradientYellowRight {
+         background : linear-gradient(to right, #deab11, #f8d772);
+      }
+      .cBgGradientYellowBottom {
+         background : linear-gradient(to top, #deab11, #f8d772);
+      }
+
+      .cBgGradientSkyTop {
+         background : linear-gradient(to bottom, #12889a, #4dd0e5);
+      }
+      .cBgGradientSkyLeft {
+         background : linear-gradient(to left, #12889a, #4dd0e5);
+      }
+      .cBgGradientSkyRight {
+         background : linear-gradient(to right, #12889a, #4dd0e5);
+      }
+      .cBgGradientSkyBottom {
+         background : linear-gradient(to top, #12889a, #4dd0e5);
+      }
+
+      .cBgGradientWhiteTop {
+         background : linear-gradient(to bottom, #e5e5e6, #f1f1f1);
+      }
+      .cBgGradientWhiteLeft {
+         background : linear-gradient(to left, #e5e5e6, #f1f1f1);
+      }
+      .cBgGradientWhiteRight {
+         background : linear-gradient(to right, #e5e5e6, #f1f1f1);
+      }
+      .cBgGradientWhiteBottom {
+         background : linear-gradient(to top, #e5e5e6, #f1f1f1);
+      }
+
+      .cBgGradientBlackTop {
+         background : linear-gradient(to bottom, #343a40, #5f6060);
+      }
+      .cBgGradientBlackLeft {
+         background : linear-gradient(to left, #343a40, #5f6060);
+      }
+      .cBgGradientBlackRight {
+         background : linear-gradient(to right, #343a40, #5f6060);
+      }
+      .cBgGradientBlackBottom {
+         background : linear-gradient(to top, #343a40, #5f6060);
+      }
+
+      .cBgGradientPupleTop {
+         background : linear-gradient(to bottom, #773191, #bd97c8);
+      }
+      .cBgGradientPupleLeft {
+         background : linear-gradient(to left, #773191, #bd97c8);
+      }
+      .cBgGradientPupleRight {
+         background : linear-gradient(to right, #773191, #bd97c8);
+      }
+      .cBgGradientPupleBottom {
+         background : linear-gradient(to top, #773191, #bd97c8);
+      }
+
+      .cBgGradientOrangeTop {
+         background : linear-gradient(to bottom, #f05624, #fac68d);
+      }
+      .cBgGradientOrangeLeft {
+         background : linear-gradient(to left, #f05624, #fac68d);
+      }
+      .cBgGradientOrangeRight {
+         background : linear-gradient(to right, #f05624, #fac68d);
+      }
+      .cBgGradientOrangeBottom {
+         background : linear-gradient(to top, #f05624, #fac68d);
+      }
+
+      .cBgGradientPinkTop {
+         background : linear-gradient(to bottom, #f47a7e, #f8b1b3);
+      }
+      .cBgGradientPinkLeft {
+         background : linear-gradient(to left, #f47a7e, #f8b1b3);
+      }
+      .cBgGradientPinkRight {
+         background : linear-gradient(to right, #f47a7e, #f8b1b3);
+      }
+      .cBgGradientPinkBottom {
+         background : linear-gradient(to top, #f47a7e, #f8b1b3);
+      }
+
+
+
+
+
+      
+
+
+
+
+      /* [공통 : border-color 테두리 색상 정의 - all] */
+      .cBorderAllBlueBold_1 {
+         border: 1px solid #076ede;
+      }
+      .cBorderAllGrayBold_1 {
+         border: 1px solid #555d63;
+      }
+      .cBorderAllGreenBold_1 {
+         border: 1px solid #238e3c;
+      }
+      .cBorderAllRedBold_1 {
+         border: 1px solid #bb2533;
+      }
+      .cBorderAllYellowBold_1 {
+         border: 1px solid #deab11;
+      }
+      .cBorderAllSkyBold_1 {
+         border: 1px solid #12889a;
+      }
+      .cBorderAllWhiteBold_1 {
+         border: 1px solid #e5e5e6;
+      }
+      .cBorderAllBlackBold_1 {
+         border: 1px solid #000000;
+      }
+
+      .cBorderAllPupleBold_1 {
+         border: 1px solid #773191;
+      }
+      .cBorderAllOrangeBold_1 {
+         border: 1px solid #f05624;
+      }
+      .cBorderAllPinkBold_1 {
+         border: 1px solid #f47a7e;
+      }
+
+      .cBorderAllBlueMiddle_1 {
+         border: 1px solid #007bff;
+      }
+      .cBorderAllGrayMiddle_1 {
+         border: 1px solid #6c757d;
+      }
+      .cBorderAllGreenMiddle_1 {
+         border: 1px solid #28a745;
+      }
+      .cBorderAllRedMiddle_1 {
+         border: 1px solid #dc3545;
+      }
+      .cBorderAllYellowMiddle_1 {
+         border: 1px solid #ffc107;
+      }
+      .cBorderAllSkyMiddle_1 {
+         border: 1px solid #17a2b8;
+      }
+      .cBorderAllWhiteMiddle_1 {
+         border: 1px solid #f8f9fa;
+      }
+      .cBorderAllBlackMiddle_1 {
+         border: 1px solid #343a40;
+      }
+
+      .cBorderAllPupleMiddle_1 {
+         border: 1px solid #9f4098;
+      }
+      .cBorderAllOrangeMiddle_1 {
+         border: 1px solid #f78d1f;
+      }
+      .cBorderAllPinkMiddle_1 {
+         border: 1px solid #f68d91;
+      }
+
+      .cBorderAllBlueLight_1 {         
+         border: 1px solid #3d98fa;
+      }
+      .cBorderAllGrayLight_1 {
+         border: 1px solid #b1b5b8;
+      }
+      .cBorderAllGreenLight_1 {
+         border: 1px solid #48d368;
+      }
+      .cBorderAllRedLight_1 {
+         border: 1px solid #f17480;
+      }
+      .cBorderAllYellowLight_1 {
+         border: 1px solid #f8d772;
+      }
+      .cBorderAllSkyLight_1 {
+         border: 1px solid #4dd0e5;
+      }
+      .cBorderAllWhiteLight_1 {
+         border: 1px solid #ffffff;
+      }
+      .cBorderAllBlackLight_1 {
+         border: 1px solid #5f6060;
+      }
+
+      .cBorderAllPupleLight_1 {
+         border: 1px solid #bd97c8;
+      }
+      .cBorderAllOrangeLight_1 {
+         border: 1px solid #fac68d;
+      }
+      .cBorderAllPinkLight_1 {
+         border: 1px solid #f8b1b3;
+      }
+      
+      .cBorderAllBlueBold_2 {
+         border: 2px solid #076ede;
+      }
+      .cBorderAllGrayBold_2 {
+         border: 2px solid #555d63;
+      }
+      .cBorderAllGreenBold_2 {
+         border: 2px solid #238e3c;
+      }
+      .cBorderAllRedBold_2 {
+         border: 2px solid #bb2533;
+      }
+      .cBorderAllYellowBold_2 {
+         border: 2px solid #deab11;
+      }
+      .cBorderAllSkyBold_2 {
+         border: 2px solid #12889a;
+      }
+      .cBorderAllWhiteBold_2 {
+         border: 2px solid #e5e5e6;
+      }
+      .cBorderAllBlackBold_2 {
+         border: 2px solid #000000;
+      }
+
+      .cBorderAllPupleBold_2 {
+         border: 2px solid #773191;
+      }
+      .cBorderAllOrangeBold_2 {
+         border: 2px solid #f05624;
+      }
+      .cBorderAllPinkBold_2 {
+         border: 2px solid #f47a7e;
+      }
+
+      .cBorderAllBlueMiddle_2 {
+         border: 2px solid #007bff;
+      }
+      .cBorderAllGrayMiddle_2 {
+         border: 2px solid #6c757d;
+      }
+      .cBorderAllGreenMiddle_2 {
+         border: 2px solid #28a745;
+      }
+      .cBorderAllRedMiddle_2 {
+         border: 2px solid #dc3545;
+      }
+      .cBorderAllYellowMiddle_2 {
+         border: 2px solid #ffc107;
+      }
+      .cBorderAllSkyMiddle_2 {
+         border: 2px solid #17a2b8;
+      }
+      .cBorderAllWhiteMiddle_2 {
+         border: 2px solid #f8f9fa;
+      }
+      .cBorderAllBlackMiddle_2 {
+         border: 2px solid #343a40;
+      }
+
+      .cBorderAllPupleMiddle_2 {
+         border: 2px solid #9f4098;
+      }
+      .cBorderAllOrangeMiddle_2 {
+         border: 2px solid #f78d1f;
+      }
+      .cBorderAllPinkMiddle_2 {
+         border: 2px solid #f68d91;
+      }
+
+      .cBorderAllBlueLight_2 {         
+         border: 2px solid #3d98fa;
+      }
+      .cBorderAllGrayLight_2 {
+         border: 2px solid #b1b5b8;
+      }
+      .cBorderAllGreenLight_2 {
+         border: 2px solid #48d368;
+      }
+      .cBorderAllRedLight_2 {
+         border: 2px solid #f17480;
+      }
+      .cBorderAllYellowLight_2 {
+         border: 2px solid #f8d772;
+      }
+      .cBorderAllSkyLight_2 {
+         border: 2px solid #4dd0e5;
+      }
+      .cBorderAllWhiteLight_2 {
+         border: 2px solid #ffffff;
+      }
+      .cBorderAllBlackLight_2 {
+         border: 2px solid #5f6060;
+      }
+
+      .cBorderAllPupleLight_2 {
+         border: 2px solid #bd97c8;
+      }
+      .cBorderAllOrangeLight_2 {
+         border: 2px solid #fac68d;
+      }
+      .cBorderAllPinkLight_2 {
+         border: 2px solid #f8b1b3;
+      }
+
+
+
+
+
+
+
+
+
+      /* [공통 : border-color 테두리 색상 정의 - top] */
+      .cBorderTopBlueBold_1 {
+         border-top: 1px solid #076ede;         
+      }
+      .cBorderTopGrayBold_1 {
+         border-top: 1px solid #555d63;
+      }
+      .cBorderTopGreenBold_1 {
+         border-top: 1px solid #238e3c;
+      }
+      .cBorderTopRedBold_1 {
+         border-top: 1px solid #bb2533;
+      }
+      .cBorderTopYellowBold_1 {
+         border-top: 1px solid #deab11;
+      }
+      .cBorderTopSkyBold_1 {
+         border-top: 1px solid #12889a;
+      }
+      .cBorderTopWhiteBold_1 {
+         border-top: 1px solid #e5e5e6;
+      }
+      .cBorderTopBlackBold_1 {
+         border-top: 1px solid #000000;
+      }
+
+      .cBorderTopPupleBold_1 {
+         border-top: 1px solid #773191;
+      }
+      .cBorderTopOrangeBold_1 {
+         border-top: 1px solid #f05624;
+      }
+      .cBorderTopPinkBold_1 {
+         border-top: 1px solid #f47a7e;
+      }
+
+      .cBorderTopBlueMiddle_1 {
+         border-top: 1px solid #007bff;
+      }
+      .cBorderTopGrayMiddle_1 {
+         border-top: 1px solid #6c757d;
+      }
+      .cBorderTopGreenMiddle_1 {
+         border-top: 1px solid #28a745;
+      }
+      .cBorderTopRedMiddle_1 {
+         border-top: 1px solid #dc3545;
+      }
+      .cBorderTopYellowMiddle_1 {
+         border-top: 1px solid #ffc107;
+      }
+      .cBorderTopSkyMiddle_1 {
+         border-top: 1px solid #17a2b8;
+      }
+      .cBorderTopWhiteMiddle_1 {
+         border-top: 1px solid #f8f9fa;
+      }
+      .cBorderTopBlackMiddle_1 {
+         border-top: 1px solid #343a40;
+      }
+
+      .cBorderTopPupleMiddle_1 {
+         border-top: 1px solid #9f4098;
+      }
+      .cBorderTopOrangeMiddle_1 {
+         border-top: 1px solid #f78d1f;
+      }
+      .cBorderTopPinkMiddle_1 {
+         border-top: 1px solid #f68d91;
+      }
+
+      .cBorderTopBlueLight_1 {         
+         border-top: 1px solid #3d98fa;
+      }
+      .cBorderTopGrayLight_1 {
+         border-top: 1px solid #b1b5b8;
+      }
+      .cBorderTopGreenLight_1 {
+         border-top: 1px solid #48d368;
+      }
+      .cBorderTopRedLight_1 {
+         border-top: 1px solid #f17480;
+      }
+      .cBorderTopYellowLight_1 {
+         border-top: 1px solid #f8d772;
+      }
+      .cBorderTopSkyLight_1 {
+         border-top: 1px solid #4dd0e5;
+      }
+      .cBorderTopWhiteLight_1 {
+         border-top: 1px solid #ffffff;
+      }
+      .cBorderTopBlackLight_1 {
+         border-top: 1px solid #5f6060;
+      }
+
+      .cBorderTopPupleLight_1 {
+         border-top: 1px solid #bd97c8;
+      }
+      .cBorderTopOrangeLight_1 {
+         border-top: 1px solid #fac68d;
+      }
+      .cBorderTopPinkLight_1 {
+         border-top: 1px solid #f8b1b3;
+      }
+      
+      .cBorderTopBlueBold_2 {
+         border-top: 2px solid #076ede;
+      }
+      .cBorderTopGrayBold_2 {
+         border-top: 2px solid #555d63;
+      }
+      .cBorderTopGreenBold_2 {
+         border-top: 2px solid #238e3c;
+      }
+      .cBorderTopRedBold_2 {
+         border-top: 2px solid #bb2533;
+      }
+      .cBorderTopYellowBold_2 {
+         border-top: 2px solid #deab11;
+      }
+      .cBorderTopSkyBold_2 {
+         border-top: 2px solid #12889a;
+      }
+      .cBorderTopWhiteBold_2 {
+         border-top: 2px solid #e5e5e6;
+      }
+      .cBorderTopBlackBold_2 {
+         border-top: 2px solid #000000;
+      }
+
+      .cBorderTopPupleBold_2 {
+         border-top: 2px solid #773191;
+      }
+      .cBorderTopOrangeBold_2 {
+         border-top: 2px solid #f05624;
+      }
+      .cBorderTopPinkBold_2 {
+         border-top: 2px solid #f47a7e;
+      }
+
+      .cBorderTopBlueMiddle_2 {
+         border-top: 2px solid #007bff;
+      }
+      .cBorderTopGrayMiddle_2 {
+         border-top: 2px solid #6c757d;
+      }
+      .cBorderTopGreenMiddle_2 {
+         border-top: 2px solid #28a745;
+      }
+      .cBorderTopRedMiddle_2 {
+         border-top: 2px solid #dc3545;
+      }
+      .cBorderTopYellowMiddle_2 {
+         border-top: 2px solid #ffc107;
+      }
+      .cBorderTopSkyMiddle_2 {
+         border-top: 2px solid #17a2b8;
+      }
+      .cBorderTopWhiteMiddle_2 {
+         border-top: 2px solid #f8f9fa;
+      }
+      .cBorderTopBlackMiddle_2 {
+         border-top: 2px solid #343a40;
+      }
+
+      .cBorderTopPupleMiddle_2 {
+         border-top: 2px solid #9f4098;
+      }
+      .cBorderTopOrangeMiddle_2 {
+         border-top: 2px solid #f78d1f;
+      }
+      .cBorderTopPinkMiddle_2 {
+         border-top: 2px solid #f68d91;
+      }
+
+      .cBorderTopBlueLight_2 {         
+         border-top: 2px solid #3d98fa;
+      }
+      .cBorderTopGrayLight_2 {
+         border-top: 2px solid #b1b5b8;
+      }
+      .cBorderTopGreenLight_2 {
+         border-top: 2px solid #48d368;
+      }
+      .cBorderTopRedLight_2 {
+         border-top: 2px solid #f17480;
+      }
+      .cBorderTopYellowLight_2 {
+         border-top: 2px solid #f8d772;
+      }
+      .cBorderTopSkyLight_2 {
+         border-top: 2px solid #4dd0e5;
+      }
+      .cBorderTopWhiteLight_2 {
+         border-top: 2px solid #ffffff;
+      }
+      .cBorderTopBlackLight_2 {
+         border-top: 2px solid #5f6060;
+      }
+
+      .cBorderTopPupleLight_2 {
+         border-top: 2px solid #bd97c8;
+      }
+      .cBorderTopOrangeLight_2 {
+         border-top: 2px solid #fac68d;
+      }
+      .cBorderTopPinkLight_2 {
+         border-top: 2px solid #f8b1b3;
+      }
+
+
+
+
+
+
+
+
+
+      /* [공통 : border-color 테두리 색상 정의 - bottom] */
+      .cBorderBottomBlueBold_1 {
+         border-bottom: 1px solid #076ede;
+      }
+      .cBorderBottomGrayBold_1 {
+         border-bottom: 1px solid #555d63;
+      }
+      .cBorderBottomGreenBold_1 {
+         border-bottom: 1px solid #238e3c;
+      }
+      .cBorderBottomRedBold_1 {
+         border-bottom: 1px solid #bb2533;
+      }
+      .cBorderBottomYellowBold_1 {
+         border-bottom: 1px solid #deab11;
+      }
+      .cBorderBottomSkyBold_1 {
+         border-bottom: 1px solid #12889a;
+      }
+      .cBorderBottomWhiteBold_1 {
+         border-bottom: 1px solid #e5e5e6;
+      }
+      .cBorderBottomBlackBold_1 {
+         border-bottom: 1px solid #000000;
+      }
+
+      .cBorderBottomPupleBold_1 {
+         border-bottom: 1px solid #773191;
+      }
+      .cBorderBottomOrangeBold_1 {
+         border-bottom: 1px solid #f05624;
+      }
+      .cBorderBottomPinkBold_1 {
+         border-bottom: 1px solid #f47a7e;
+      }
+
+      .cBorderBottomBlueMiddle_1 {
+         border-bottom: 1px solid #007bff;
+      }
+      .cBorderBottomGrayMiddle_1 {
+         border-bottom: 1px solid #6c757d;
+      }
+      .cBorderBottomGreenMiddle_1 {
+         border-bottom: 1px solid #28a745;
+      }
+      .cBorderBottomRedMiddle_1 {
+         border-bottom: 1px solid #dc3545;
+      }
+      .cBorderBottomYellowMiddle_1 {
+         border-bottom: 1px solid #ffc107;
+      }
+      .cBorderBottomSkyMiddle_1 {
+         border-bottom: 1px solid #17a2b8;
+      }
+      .cBorderBottomWhiteMiddle_1 {
+         border-bottom: 1px solid #f8f9fa;
+      }
+      .cBorderBottomBlackMiddle_1 {
+         border-bottom: 1px solid #343a40;
+      }
+
+      .cBorderBottomPupleMiddle_1 {
+         border-bottom: 1px solid #9f4098;
+      }
+      .cBorderBottomOrangeMiddle_1 {
+         border-bottom: 1px solid #f78d1f;
+      }
+      .cBorderBottomPinkMiddle_1 {
+         border-bottom: 1px solid #f68d91;
+      }
+
+      .cBorderBottomBlueLight_1 {         
+         border-bottom: 1px solid #3d98fa;
+      }
+      .cBorderBottomGrayLight_1 {
+         border-bottom: 1px solid #b1b5b8;
+      }
+      .cBorderBottomGreenLight_1 {
+         border-bottom: 1px solid #48d368;
+      }
+      .cBorderBottomRedLight_1 {
+         border-bottom: 1px solid #f17480;
+      }
+      .cBorderBottomYellowLight_1 {
+         border-bottom: 1px solid #f8d772;
+      }
+      .cBorderBottomSkyLight_1 {
+         border-bottom: 1px solid #4dd0e5;
+      }
+      .cBorderBottomWhiteLight_1 {
+         border-bottom: 1px solid #ffffff;
+      }
+      .cBorderBottomBlackLight_1 {
+         border-bottom: 1px solid #5f6060;
+      }
+
+      .cBorderBottomPupleLight_1 {
+         border-bottom: 1px solid #bd97c8;
+      }
+      .cBorderBottomOrangeLight_1 {
+         border-bottom: 1px solid #fac68d;
+      }
+      .cBorderBottomPinkLight_1 {
+         border-bottom: 1px solid #f8b1b3;
+      }
+      
+      .cBorderBottomBlueBold_2 {
+         border-bottom: 2px solid #076ede;
+      }
+      .cBorderBottomGrayBold_2 {
+         border-bottom: 2px solid #555d63;
+      }
+      .cBorderBottomGreenBold_2 {
+         border-bottom: 2px solid #238e3c;
+      }
+      .cBorderBottomRedBold_2 {
+         border-bottom: 2px solid #bb2533;
+      }
+      .cBorderBottomYellowBold_2 {
+         border-bottom: 2px solid #deab11;
+      }
+      .cBorderBottomSkyBold_2 {
+         border-bottom: 2px solid #12889a;
+      }
+      .cBorderBottomWhiteBold_2 {
+         border-bottom: 2px solid #e5e5e6;
+      }
+      .cBorderBottomBlackBold_2 {
+         border-bottom: 2px solid #000000;
+      }
+
+      .cBorderBottomPupleBold_2 {
+         border-bottom: 2px solid #773191;
+      }
+      .cBorderBottomOrangeBold_2 {
+         border-bottom: 2px solid #f05624;
+      }
+      .cBorderBottomPinkBold_2 {
+         border-bottom: 2px solid #f47a7e;
+      }
+
+      .cBorderBottomBlueMiddle_2 {
+         border-bottom: 2px solid #007bff;
+      }
+      .cBorderBottomGrayMiddle_2 {
+         border-bottom: 2px solid #6c757d;
+      }
+      .cBorderBottomGreenMiddle_2 {
+         border-bottom: 2px solid #28a745;
+      }
+      .cBorderBottomRedMiddle_2 {
+         border-bottom: 2px solid #dc3545;
+      }
+      .cBorderBottomYellowMiddle_2 {
+         border-bottom: 2px solid #ffc107;
+      }
+      .cBorderBottomSkyMiddle_2 {
+         border-bottom: 2px solid #17a2b8;
+      }
+      .cBorderBottomWhiteMiddle_2 {
+         border-bottom: 2px solid #f8f9fa;
+      }
+      .cBorderBottomBlackMiddle_2 {
+         border-bottom: 2px solid #343a40;
+      }
+
+      .cBorderBottomPupleMiddle_2 {
+         border-bottom: 2px solid #9f4098;
+      }
+      .cBorderBottomOrangeMiddle_2 {
+         border-bottom: 2px solid #f78d1f;
+      }
+      .cBorderBottomPinkMiddle_2 {
+         border-bottom: 2px solid #f68d91;
+      }
+
+      .cBorderBottomBlueLight_2 {         
+         border-bottom: 2px solid #3d98fa;
+      }
+      .cBorderBottomGrayLight_2 {
+         border-bottom: 2px solid #b1b5b8;
+      }
+      .cBorderBottomGreenLight_2 {
+         border-bottom: 2px solid #48d368;
+      }
+      .cBorderBottomRedLight_2 {
+         border-bottom: 2px solid #f17480;
+      }
+      .cBorderBottomYellowLight_2 {
+         border-bottom: 2px solid #f8d772;
+      }
+      .cBorderBottomSkyLight_2 {
+         border-bottom: 2px solid #4dd0e5;
+      }
+      .cBorderBottomWhiteLight_2 {
+         border-bottom: 2px solid #ffffff;
+      }
+      .cBorderBottomBlackLight_2 {
+         border-bottom: 2px solid #5f6060;
+      }
+
+      .cBorderBottomPupleLight_2 {
+         border-bottom: 2px solid #bd97c8;
+      }
+      .cBorderBottomOrangeLight_2 {
+         border-bottom: 2px solid #fac68d;
+      }
+      .cBorderBottomPinkLight_2 {
+         border-bottom: 2px solid #f8b1b3;
+      }
+
+
+
+
+
+
+
+
+
+      /* [공통 : border-color 테두리 색상 정의 - left] */
+      .cBorderLeftBlueBold_1 {
+         border-left: 1px solid #076ede;
+      }
+      .cBorderLeftGrayBold_1 {
+         border-left: 1px solid #555d63;
+      }
+      .cBorderLeftGreenBold_1 {
+         border-left: 1px solid #238e3c;
+      }
+      .cBorderLeftRedBold_1 {
+         border-left: 1px solid #bb2533;
+      }
+      .cBorderLeftYellowBold_1 {
+         border-left: 1px solid #deab11;
+      }
+      .cBorderLeftSkyBold_1 {
+         border-left: 1px solid #12889a;
+      }
+      .cBorderLeftWhiteBold_1 {
+         border-left: 1px solid #e5e5e6;
+      }
+      .cBorderLeftBlackBold_1 {
+         border-left: 1px solid #000000;
+      }
+
+      .cBorderLeftPupleBold_1 {
+         border-left: 1px solid #773191;
+      }
+      .cBorderLeftOrangeBold_1 {
+         border-left: 1px solid #f05624;
+      }
+      .cBorderLeftPinkBold_1 {
+         border-left: 1px solid #f47a7e;
+      }
+
+      .cBorderLeftBlueMiddle_1 {
+         border-left: 1px solid #007bff;
+      }
+      .cBorderLeftGrayMiddle_1 {
+         border-left: 1px solid #6c757d;
+      }
+      .cBorderLeftGreenMiddle_1 {
+         border-left: 1px solid #28a745;
+      }
+      .cBorderLeftRedMiddle_1 {
+         border-left: 1px solid #dc3545;
+      }
+      .cBorderLeftYellowMiddle_1 {
+         border-left: 1px solid #ffc107;
+      }
+      .cBorderLeftSkyMiddle_1 {
+         border-left: 1px solid #17a2b8;
+      }
+      .cBorderLeftWhiteMiddle_1 {
+         border-left: 1px solid #f8f9fa;
+      }
+      .cBorderLeftBlackMiddle_1 {
+         border-left: 1px solid #343a40;
+      }
+
+      .cBorderLeftPupleMiddle_1 {
+         border-left: 1px solid #9f4098;
+      }
+      .cBorderLeftOrangeMiddle_1 {
+         border-left: 1px solid #f78d1f;
+      }
+      .cBorderLeftPinkMiddle_1 {
+         border-left: 1px solid #f68d91;
+      }
+
+      .cBorderLeftBlueLight_1 {         
+         border-left: 1px solid #3d98fa;
+      }
+      .cBorderLeftGrayLight_1 {
+         border-left: 1px solid #b1b5b8;
+      }
+      .cBorderLeftGreenLight_1 {
+         border-left: 1px solid #48d368;
+      }
+      .cBorderLeftRedLight_1 {
+         border-left: 1px solid #f17480;
+      }
+      .cBorderLeftYellowLight_1 {
+         border-left: 1px solid #f8d772;
+      }
+      .cBorderLeftSkyLight_1 {
+         border-left: 1px solid #4dd0e5;
+      }
+      .cBorderLeftWhiteLight_1 {
+         border-left: 1px solid #ffffff;
+      }
+      .cBorderLeftBlackLight_1 {
+         border-left: 1px solid #5f6060;
+      }
+
+      .cBorderLeftPupleLight_1 {
+         border-left: 1px solid #bd97c8;
+      }
+      .cBorderLeftOrangeLight_1 {
+         border-left: 1px solid #fac68d;
+      }
+      .cBorderLeftPinkLight_1 {
+         border-left: 1px solid #f8b1b3;
+      }
+      
+      .cBorderLeftBlueBold_2 {
+         border-left: 2px solid #076ede;
+      }
+      .cBorderLeftGrayBold_2 {
+         border-left: 2px solid #555d63;
+      }
+      .cBorderLeftGreenBold_2 {
+         border-left: 2px solid #238e3c;
+      }
+      .cBorderLeftRedBold_2 {
+         border-left: 2px solid #bb2533;
+      }
+      .cBorderLeftYellowBold_2 {
+         border-left: 2px solid #deab11;
+      }
+      .cBorderLeftSkyBold_2 {
+         border-left: 2px solid #12889a;
+      }
+      .cBorderLeftWhiteBold_2 {
+         border-left: 2px solid #e5e5e6;
+      }
+      .cBorderLeftBlackBold_2 {
+         border-left: 2px solid #000000;
+      }
+
+      .cBorderLeftPupleBold_2 {
+         border-left: 2px solid #773191;
+      }
+      .cBorderLeftOrangeBold_2 {
+         border-left: 2px solid #f05624;
+      }
+      .cBorderLeftPinkBold_2 {
+         border-left: 2px solid #f47a7e;
+      }
+
+      .cBorderLeftBlueMiddle_2 {
+         border-left: 2px solid #007bff;
+      }
+      .cBorderLeftGrayMiddle_2 {
+         border-left: 2px solid #6c757d;
+      }
+      .cBorderLeftGreenMiddle_2 {
+         border-left: 2px solid #28a745;
+      }
+      .cBorderLeftRedMiddle_2 {
+         border-left: 2px solid #dc3545;
+      }
+      .cBorderLeftYellowMiddle_2 {
+         border-left: 2px solid #ffc107;
+      }
+      .cBorderLeftSkyMiddle_2 {
+         border-left: 2px solid #17a2b8;
+      }
+      .cBorderLeftWhiteMiddle_2 {
+         border-left: 2px solid #f8f9fa;
+      }
+      .cBorderLeftBlackMiddle_2 {
+         border-left: 2px solid #343a40;
+      }
+
+      .cBorderLeftPupleMiddle_2 {
+         border-left: 2px solid #9f4098;
+      }
+      .cBorderLeftOrangeMiddle_2 {
+         border-left: 2px solid #f78d1f;
+      }
+      .cBorderLeftPinkMiddle_2 {
+         border-left: 2px solid #f68d91;
+      }
+
+      .cBorderLeftBlueLight_2 {         
+         border-left: 2px solid #3d98fa;
+      }
+      .cBorderLeftGrayLight_2 {
+         border-left: 2px solid #b1b5b8;
+      }
+      .cBorderLeftGreenLight_2 {
+         border-left: 2px solid #48d368;
+      }
+      .cBorderLeftRedLight_2 {
+         border-left: 2px solid #f17480;
+      }
+      .cBorderLeftYellowLight_2 {
+         border-left: 2px solid #f8d772;
+      }
+      .cBorderLeftSkyLight_2 {
+         border-left: 2px solid #4dd0e5;
+      }
+      .cBorderLeftWhiteLight_2 {
+         border-left: 2px solid #ffffff;
+      }
+      .cBorderLeftBlackLight_2 {
+         border-left: 2px solid #5f6060;
+      }
+
+      .cBorderLeftPupleLight_2 {
+         border-left: 2px solid #bd97c8;
+      }
+      .cBorderLeftOrangeLight_2 {
+         border-left: 2px solid #fac68d;
+      }
+      .cBorderLeftPinkLight_2 {
+         border-left: 2px solid #f8b1b3;
+      }
+
+
+
+
+
+
+
+
+
+      /* [공통 : border-color 테두리 색상 정의 - right] */
+      .cBorderRightBlueBold_1 {
+         border-right: 1px solid #076ede;
+      }
+      .cBorderRightGrayBold_1 {
+         border-right: 1px solid #555d63;
+      }
+      .cBorderRightGreenBold_1 {
+         border-right: 1px solid #238e3c;
+      }
+      .cBorderRightRedBold_1 {
+         border-right: 1px solid #bb2533;
+      }
+      .cBorderRightYellowBold_1 {
+         border-right: 1px solid #deab11;
+      }
+      .cBorderRightSkyBold_1 {
+         border-right: 1px solid #12889a;
+      }
+      .cBorderRightWhiteBold_1 {
+         border-right: 1px solid #e5e5e6;
+      }
+      .cBorderRightBlackBold_1 {
+         border-right: 1px solid #000000;
+      }
+
+      .cBorderRightPupleBold_1 {
+         border-right: 1px solid #773191;
+      }
+      .cBorderRightOrangeBold_1 {
+         border-right: 1px solid #f05624;
+      }
+      .cBorderRightPinkBold_1 {
+         border-right: 1px solid #f47a7e;
+      }
+
+      .cBorderRightBlueMiddle_1 {
+         border-right: 1px solid #007bff;
+      }
+      .cBorderRightGrayMiddle_1 {
+         border-right: 1px solid #6c757d;
+      }
+      .cBorderRightGreenMiddle_1 {
+         border-right: 1px solid #28a745;
+      }
+      .cBorderRightRedMiddle_1 {
+         border-right: 1px solid #dc3545;
+      }
+      .cBorderRightYellowMiddle_1 {
+         border-right: 1px solid #ffc107;
+      }
+      .cBorderRightSkyMiddle_1 {
+         border-right: 1px solid #17a2b8;
+      }
+      .cBorderRightWhiteMiddle_1 {
+         border-right: 1px solid #f8f9fa;
+      }
+      .cBorderRightBlackMiddle_1 {
+         border-right: 1px solid #343a40;
+      }
+
+      .cBorderRightPupleMiddle_1 {
+         border-right: 1px solid #9f4098;
+      }
+      .cBorderRightOrangeMiddle_1 {
+         border-right: 1px solid #f78d1f;
+      }
+      .cBorderRightPinkMiddle_1 {
+         border-right: 1px solid #f68d91;
+      }
+
+      .cBorderRightBlueLight_1 {         
+         border-right: 1px solid #3d98fa;
+      }
+      .cBorderRightGrayLight_1 {
+         border-right: 1px solid #b1b5b8;
+      }
+      .cBorderRightGreenLight_1 {
+         border-right: 1px solid #48d368;
+      }
+      .cBorderRightRedLight_1 {
+         border-right: 1px solid #f17480;
+      }
+      .cBorderRightYellowLight_1 {
+         border-right: 1px solid #f8d772;
+      }
+      .cBorderRightSkyLight_1 {
+         border-right: 1px solid #4dd0e5;
+      }
+      .cBorderRightWhiteLight_1 {
+         border-right: 1px solid #ffffff;
+      }
+      .cBorderRightBlackLight_1 {
+         border-right: 1px solid #5f6060;
+      }
+
+      .cBorderRightPupleLight_1 {
+         border-right: 1px solid #bd97c8;
+      }
+      .cBorderRightOrangeLight_1 {
+         border-right: 1px solid #fac68d;
+      }
+      .cBorderRightPinkLight_1 {
+         border-right: 1px solid #f8b1b3;
+      }
+      
+      .cBorderRightBlueBold_2 {
+         border-right: 2px solid #076ede;
+      }
+      .cBorderRightGrayBold_2 {
+         border-right: 2px solid #555d63;
+      }
+      .cBorderRightGreenBold_2 {
+         border-right: 2px solid #238e3c;
+      }
+      .cBorderRightRedBold_2 {
+         border-right: 2px solid #bb2533;
+      }
+      .cBorderRightYellowBold_2 {
+         border-right: 2px solid #deab11;
+      }
+      .cBorderRightSkyBold_2 {
+         border-right: 2px solid #12889a;
+      }
+      .cBorderRightWhiteBold_2 {
+         border-right: 2px solid #e5e5e6;
+      }
+      .cBorderRightBlackBold_2 {
+         border-right: 2px solid #000000;
+      }
+
+      .cBorderRightPupleBold_2 {
+         border-right: 2px solid #773191;
+      }
+      .cBorderRightOrangeBold_2 {
+         border-right: 2px solid #f05624;
+      }
+      .cBorderRightPinkBold_2 {
+         border-right: 2px solid #f47a7e;
+      }
+
+      .cBorderRightBlueMiddle_2 {
+         border-right: 2px solid #007bff;
+      }
+      .cBorderRightGrayMiddle_2 {
+         border-right: 2px solid #6c757d;
+      }
+      .cBorderRightGreenMiddle_2 {
+         border-right: 2px solid #28a745;
+      }
+      .cBorderRightRedMiddle_2 {
+         border-right: 2px solid #dc3545;
+      }
+      .cBorderRightYellowMiddle_2 {
+         border-right: 2px solid #ffc107;
+      }
+      .cBorderRightSkyMiddle_2 {
+         border-right: 2px solid #17a2b8;
+      }
+      .cBorderRightWhiteMiddle_2 {
+         border-right: 2px solid #f8f9fa;
+      }
+      .cBorderRightBlackMiddle_2 {
+         border-right: 2px solid #343a40;
+      }
+
+      .cBorderRightPupleMiddle_2 {
+         border-right: 2px solid #9f4098;
+      }
+      .cBorderRightOrangeMiddle_2 {
+         border-right: 2px solid #f78d1f;
+      }
+      .cBorderRightPinkMiddle_2 {
+         border-right: 2px solid #f68d91;
+      }
+
+      .cBorderRightBlueLight_2 {         
+         border-right: 2px solid #3d98fa;
+      }
+      .cBorderRightGrayLight_2 {
+         border-right: 2px solid #b1b5b8;
+      }
+      .cBorderRightGreenLight_2 {
+         border-right: 2px solid #48d368;
+      }
+      .cBorderRightRedLight_2 {
+         border-right: 2px solid #f17480;
+      }
+      .cBorderRightYellowLight_2 {
+         border-right: 2px solid #f8d772;
+      }
+      .cBorderRightSkyLight_2 {
+         border-right: 2px solid #4dd0e5;
+      }
+      .cBorderRightWhiteLight_2 {
+         border-right: 2px solid #ffffff;
+      }
+      .cBorderRightBlackLight_2 {
+         border-right: 2px solid #5f6060;
+      }
+
+      .cBorderRightPupleLight_2 {
+         border-right: 2px solid #bd97c8;
+      }
+      .cBorderRightOrangeLight_2 {
+         border-right: 2px solid #fac68d;
+      }
+      .cBorderRightPinkLight_2 {
+         border-right: 2px solid #f8b1b3;
+      }
+
+
+
+
+
+      
+
+
+
+
+      /* [공통 : div 오버플로우 처리 overflow 넘침 스크롤 scroll] */
+      .cPtagOverFlow {
+         /* block 값이 있어야 정상 오버플로우 처리됨 */
+         display: block;
+         overflow: auto;
+      }
+      .cPtagOverFlow::-webkit-scrollbar {         
+         width: 0px;               
+         background-color: #c1c1c1;
+      }
+      .cPtagOverFlow::-webkit-scrollbar-thumb {               
+         background-color: #444444;
+      }
+
+
+
+
+
+      
+
+
+
+
+      /* [공통 : 텍스트 text 색상 color 변경 실시] */
+      .cFontColorBlueBold {
+         color: #076ede;
+      }
+      .cFontColorGrayBold {
+         color: #555d63;
+      }
+      .cFontColorGreenBold {
+         color: #238e3c;
+      }
+      .cFontColorRedBold {
+         color: #bb2533;
+      }
+      .cFontColorYellowBold {
+         color: #deab11;
+      }
+      .cFontColorSkyBold {
+         color: #12889a;
+      }
+      .cFontColorWhiteBold {
+         color: #e5e5e6;
+      }
+      .cFontColorBlackBold {
+         color: #000000;
+      }
+
+      .cFontColorPupleBold {
+         color: #773191;
+      }
+      .cFontColorOrangeBold {
+         color: #f05624;
+      }
+      .cFontColorPinkBold {
+         color: #f47a7e;
+      }
+
+      .cFontColorBlueMiddle {
+         color: #007bff;
+      }
+      .cFontColorGrayMiddle {
+         color: #6c757d;
+      }
+      .cFontColorGreenMiddle {
+         color: #28a745;
+      }
+      .cFontColorRedMiddle {
+         color: #dc3545;
+      }
+      .cFontColorYellowMiddle {
+         color: #ffc107;
+      }
+      .cFontColorSkyMiddle {
+         color: #17a2b8;
+      }
+      .cFontColorWhiteMiddle {
+         color: #f8f9fa;
+      }
+      .cFontColorBlackMiddle {
+         color: #343a40;
+      }
+
+      .cFontColorPupleMiddle {
+         color: #9f4098;
+      }
+      .cFontColorOrangeMiddle {
+         color: #f78d1f;
+      }
+      .cFontColorPinkMiddle {
+         color: #f68d91;
+      }
+
+      .cFontColorBlueLight {         
+         color: #3d98fa;
+      }
+      .cFontColorGrayLight {
+         color: #b1b5b8;
+      }
+      .cFontColorGreenLight {
+         color: #48d368;
+      }
+      .cFontColorRedLight {
+         color: #f17480;
+      }
+      .cFontColorYellowLight {
+         color: #f8d772;
+      }
+      .cFontColorSkyLight {
+         color: #4dd0e5;
+      }
+      .cFontColorWhiteLight {
+         color: #ffffff;
+      }
+      .cFontColorBlackLight {
+         color: #5f6060;
+      }
+
+      .cFontColorPupleLight {
+         color: #bd97c8;
+      }
+      .cFontColorOrangeLight {
+         color: #fac68d;
+      }
+      .cFontColorPinkLight {
+         color: #f8b1b3;
+      }
+
+
+
+
+
+
+
+
+
+      /* [공통 : 텍스트 굵기 변경 실시] */
+      .cFontBoldWeight {
+         font-weight: bold;
+      }
+      .cFontNormalWeight {
+         font-weight: normal;
+      }
+      .cFontLightWeight {
+         font-weight: lighter;
+      }
+
+
+
+
+
+
+
+
+
+      /* [공통 : 텍스트 정렬 방법] */
+      .cTextCenterWidthAlign {
+         /* 텍스트 중앙 정렬 */
+         text-align: center;         
+      }
+      .cTextLeftWidthAlign {
+         /* 텍스트 왼쪽 정렬 */
+         text-align: left;
+      }
+      .cTextRightWidthAlign {
+         /* 텍스트 오른쪽 정렬 */
+         text-align: right;
+      }
+      .cTextJustifyWidthAlign {
+         /* 텍스트 문단 양쪽 정렬 */
+         text-align: justify;
+      }
+
+
+
+
+
+
+
+
+
+      /* [공통 : 폰트 글씨체 변경 실시] */
+      /*
+      1. 문법 : font-family: font [폰트이름] 또는 [글꼴 유형] | initial [기본값 설정] | inherit [부모 요소의 속성값을 상속받음]
+      2. 폰트 이름 : 글꼴 이름에 띄어쓰기가 있으면 작은 따옴표 또는 큰 따옴표로 감쌉니다
+      3. 글꼴 유형 : serif = 삐침 있는 명조계열의 글꼴 / sans-serif = 삐침 없고 굵기가 일정한 고딕계열의 글꼴
+                  monospace : 글자 폭과 간격이 일정한 글꼴 / cursive : 손으로 쓴 것 같은 필기계열의 글꼴
+                  fantasy : 화려한 글꼴
+      4. 예시 - 독자적 사용 / 기본값 설정 없음 : 
+                  font-family: Georgia, serif; // [Georgia 글꼴 사용]
+                  font-family: "Times New Roman", serif; // [Times New Roman 글꼴 사용]
+                  font-family: Georgia, "Times New Roman", serif; // [Georgia 글꼴 먼저 찾고 없으면 Times New Roman 글꼴 사용]
+                  font-family: Georgia, "Times New Roman", serif; // [Georgia 글꼴 먼저 찾고 없으면 Times New Roman 글꼴 사용]
+                  font-family: Georgia, "Malgun Gothic", serif; // [Georgia 글꼴 사용 >> 한글이 없는 경우 >> "Malgun Gothic" 글꼴 사용해 한글 표시]
+      */
+      .cFontFamilyDotum {
+         /* 돋움 글꼴 사용 */
+         font-family: Dotum, sans-serif;
+      }
+      .cFontFamilyGulim {
+         /* 굴림 글꼴 사용 */
+         font-family: Gulim, sans-serif;
+      }
+      .cFontFamilyBatang {
+         /* 바탕 글꼴 사용 */
+         font-family: Batang, sans-serif;
+      }
+      .cFontFamilyGungsuh {
+         /* 궁서 글꼴 사용 */
+         font-family: Gungsuh, sans-serif;
+      }
+
+      .cFontFamilyDotumChe {
+         /* 돋움체 글꼴 사용 */
+         font-family: DotumChe, sans-serif;
+      }
+      .cFontFamilyGulimChe {
+         /* 굴림체 글꼴 사용 */
+         font-family: GulimChe, sans-serif;
+      }
+      .cFontFamilyBatangChe {
+         /* 바탕체 글꼴 사용 */
+         font-family: BatangChe, sans-serif;
+      }
+      .cFontFamilyGungsuhChe {
+         /* 궁서체 글꼴 사용 */
+         font-family: GungsuhChe, sans-serif;
+      }
+      .cFontFamilyNewGulim {
+         /* 새굴림 글꼴 사용 */
+         font-family: "New Gulim", sans-serif;
+      }
+      .cFontFamilyMalgunGothic {
+         /* 맑은 고딕 글꼴 사용 */
+         font-family: "Malgun Gothic", sans-serif;
+      }
+
+
+
+
+
+      
+
+
+
+
+      /* [공통 : border-radius 테두리 둥글기 all 적용] */
+      .cBorderRadiusAll_5 {
+         border-radius: 5px;
+      }
+      /* [공통 : border-radius 테두리 둥글기 Top 적용] */
+      .cBorderRadiusTop_5 {
+         border-top-left-radius: 5px;
+         border-top-right-radius: 5px;
+      }
+      /* [공통 : border-radius 테두리 둥글기 bottom 적용] */
+      .cBorderRadiusBottom_5 {
+         border-bottom-left-radius: 5px;
+         border-bottom-right-radius: 5px;
+      }
+
+      .cBorderRadiusAll_10 {
+         border-radius: 10px;
+      }
+      /* [공통 : border-radius 테두리 둥글기 Top 적용] */
+      .cBorderRadiusTop_10 {
+         border-top-left-radius: 10px;
+         border-top-right-radius: 10px;
+      }
+      /* [공통 : border-radius 테두리 둥글기 bottom 적용] */
+      .cBorderRadiusBottom_10 {
+         border-bottom-left-radius: 10px;
+         border-bottom-right-radius: 10px;
+      }
+
+      .cBorderRadiusAll_15 {
+         border-radius: 15px;
+      }
+      /* [공통 : border-radius 테두리 둥글기 Top 적용] */
+      .cBorderRadiusTop_15 {
+         border-top-left-radius: 15px;
+         border-top-right-radius: 15px;
+      }
+      /* [공통 : border-radius 테두리 둥글기 bottom 적용] */
+      .cBorderRadiusBottom_15 {
+         border-bottom-left-radius: 15px;
+         border-bottom-right-radius: 15px;
+      }
+
+      .cBorderRadiusAll_20 {
+         border-radius: 20px;
+      }
+      /* [공통 : border-radius 테두리 둥글기 Top 적용] */
+      .cBorderRadiusTop_20 {
+         border-top-left-radius: 20px;
+         border-top-right-radius: 20px;
+      }
+      /* [공통 : border-radius 테두리 둥글기 bottom 적용] */
+      .cBorderRadiusBottom_20 {
+         border-bottom-left-radius: 20px;
+         border-bottom-right-radius: 20px;
+      }
+
+
+
+
+
+      
+
+
+
+
+      /* [공통 : font-size 반응형 처리] */
+      .cPtagFontSizeBigTitle {
+         font-size: 200%;
+      }
+      .cPtagFontSizeTitle {
+         font-size: 160%;
+      }
+      .cPtagFontSizeContent {
+         font-size: 140%;
+      }
+      .cPtagFontSizeTrail {
+         font-size: 110%;
+      }
+      .cPtagFontSizeMin {
+         font-size: 100%;
+      }   
+    </style> 
+
+    <!-- 내부 JS 스타일 지정 -->
+    <script>
+
+       /*
+       [JS 요약 설명]      
+       */
+
+
+       /* [html 최초 로드 및 이벤트 상시 대기 실시] */
+       window.onload = function() {
+          console.log("");
+          console.log("[window onload] : [start]");
+          console.log("");    
+       };
+
+
+       /* [이벤트 함수 정의] */
+       function checkAnswer(){
+          console.log("");
+          console.log("[checkAnswer] : [start]");
+          console.log("");
+
+          // [체크 된 항목을 저장할 변수 선언]
+          var noCheck = "";
+          var result = "";
+
+          // [그룹별 라디오 버튼이 정상적으로 선택 되었는지 확인]
+          var one = $(":input:radio[name='qna_1_group']:checked").val();
+          var two = $(":input:radio[name='qna_2_group']:checked").val();
+          var three = $(":input:radio[name='qna_3_group']:checked").val();
+          var four = $(":input:radio[name='qna_4_group']:checked").val();
+          var five = $(":input:radio[name='qna_5_group']:checked").val();
+          console.log("");
+          console.log("[checkAnswer] : [answer check]");
+          console.log("[one] : " + one);
+          console.log("[two] : " + two);
+          console.log("[three] : " + three);
+          console.log("[four] : " + four);
+          console.log("[five] : " + five);
+          console.log("");
+
+          // [체크 안한 항목이 있다면 함수 종료]
+          var checkArray = [one, two, three, four, five];
+          console.log("");
+          console.log("[checkAnswer] : [checkArray]");
+          console.log("[arr] : " + checkArray);
+          console.log("");          
+          for(var i=0; i<checkArray.length; i++){             
+             if (checkArray[i] != null && checkArray[i] != "" && checkArray[i] != "undefined") {                
+                result = result + String(i+1) + "번[" +checkArray[i]+ "]  ";
+             }
+             else {
+                noCheck = noCheck + String(i+1) + "번[No Check]  ";
+             }
+          }
+          console.log("");
+          console.log("[checkAnswer] : [check confirm]");
+          console.log("[noCheck] : " + noCheck);
+          console.log("[result] : " + result);
+          console.log("");                    
+          if(noCheck.length > 0){ //체크 안한 항목이 있을 경우
+             //alert(noCheck);
+             sweetAlert(4, "", noCheck);
+          }
+          else {
+             sweetAlert(2, "", result);
+          }
+       };
+
+
+       function sweetAlert(type, title, content){
+            console.log(""); 
+            console.log("[sweetAlert] : " + "[start] : " + type);           
+            console.log("");
+
+            //타입 분기 처리 실시 (1=일반/2=성공/3=경고/4=실패/5=취소,확인 버튼)
+            if(type == 1){                            
+                swal({ 
+                    title: title,
+                    text: content,                    
+                    className : 'swal-wide' //커스텀 사이즈                    
+                });
+            }
+            else if(type == 2){
+                swal({ 
+                    title: title,
+                    text: content,                    
+                    className : 'swal-wide', //커스텀 사이즈
+                    icon: "success", //success, warning, error
+                    button: "확인"
+                });
+            }
+            else if(type == 3){
+                swal({ 
+                    title: title,
+                    text: content,                    
+                    className : 'swal-wide', //커스텀 사이즈
+                    icon: "warning", //success, warning, error
+                    button: "확인"
+                });
+
+            }
+            else if(type == 4){
+                swal({ 
+                    title: title,
+                    text: content,                    
+                    className : 'swal-wide', //커스텀 사이즈
+                    icon: "error", //success, warning, error
+                    button: "확인"
+                });
+            }
+            else if(type == 5){ 
+                swal({ 
+                    title: title,
+                    text: content,                    
+                    className : 'swal-wide', //커스텀 사이즈
+                    icon: "error", //success, warning, error
+                    buttons: {
+                        cancel : "취소", 
+                        catch: {
+                            text: "확인",
+                            value: "catch"
+                        },                        
+                    },                    
+                })
+                .then((value) => {
+                    switch(value){                           
+                        case "catch" : 
+                            sweetAlert(1, "Title", "확인 클릭");
+                            break;
+                    }
+                });
+
+            }
+        };
+
+    </script>
+
+</head>
+
+
+<body>
+
+   <!-- 타이틀 레이아웃 생성 실시 -->
+   <div id="i_title_container" 
+      class="cDivRelativeH cDivPtagHmVisible cBgBlueMiddle"
+      style="width: 100%; height: 10%; margin: 0 auto; padding: 0; border: none;">
+      <p id="i_title_txt" class="cPtagHmVisible cPtagFontSizeTitle cFontColorWhiteLight cFontBoldWeight cTextCenterWidthAlign">KNIH</p>
+   </div>
+
+
+   <!-- 설문조사 설명 아이콘 레이아웃 -->
+   <div id="i_explanation_icon_container"
+      class="cDivRelativeH"
+      style="width: 80%; height: 4%; margin: 0 auto; padding: 0; border: none; top: 5%;">      
+      <div id="i_explanation_icon_image" 
+         class="cDivRelativeW cBgImageLeftSize"
+         style="width: 43px; height: 100%; margin: 0; padding: 0; border: none; 
+               background-image: url('../WebProject/assets/image/blue_people_icon.png');">         
+      </div>
+      <div id="i_explanation_icon_content" 
+         class="cDivRelativeW cDivPtagHmHidden"
+         style="width: 70%; height: 100%; margin: 0; padding: 0; border: none;">      
+         <p id="i_explanation_icon_txt" class="cPtagHmHidden cPtagFontSizeContent cFontColorBlueBold cFontBoldWeight cTextLeftWidthAlign">
+            주1회 설문조사
+         </p>      
+      </div>
+   </div>
+
+
+   <!-- 설문조사 설명 박스 레이아웃
+   <div id="i_explanation_container"
+      class="cDivRelativeH cDivPtagHmVisible cBorderRadiusAll_10 cPtagOverFlow cBgWhiteLight cBorderAllBlueMiddle_1 cShadowBoxGray1px"
+      style="width: 70%; height: 20%; margin: 0 auto; padding: 5%; top: 6%;">
+      <p id="i_explanation_txt" class="cPtagHmVisible cPtagFontSizeContent cFontColorBlueBold cFontNormalWeight cTextJustifyWidthAlign">
+         회사는 개인정보취급방침을 통하여 고객님께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다. 회사는 개인정보취급방침을 개정하는 경우 웹사이트 공지사항(또는 개별공지)을 통하여 공지할 것입니다. 회사는 정보주체가 고객서비스(상담신청, 상담, 서비스 신청)를 이용하기 위하여 고객의 개인정보를 제공할때의 서비스제공을 위한 필수정보와, 보다 향상된 서비스 제공을 위한 선택정보를 온라인상 입력방법을 통하여 수집하고 있습니다. 수집하는 개인정보의 범위는 아래와 같습니다. 
+      </p>
+   </div> -->
+
+
+   <!-- 설문조사 문제 레이아웃 -->
+   <div id="i_qna_3_container"
+      class="cDivRelativeH cBorderRadiusAll_10 cShadowBoxGray1px"
+      style="width: 80%; height: 30%; margin: 0 auto; padding: 0; border-top: none; top: 15%;">
+      <div id="i_qna_3_tittle"
+         class="cDivRelativeH cBorderRadiusTop_10 cBgBlackMiddle"
+         style="width: 100%; height: 23%; margin: 0 auto; padding: 0; top: 0%;">
+         <div id="i_qna_3_idx_container" 
+            class="cDivRelativeW cDivPtagHmHidden"
+            style="width: 35px; height: 100%; margin: 0; padding: 0; border: none; left: 2%">      
+            <p id="i_qna_3_idx_txt" class="cPtagHmHidden cPtagFontSizeContent cFontColorWhiteLight cFontBoldWeight cTextCenterWidthAlign">
+               [1]
+            </p>      
+         </div>
+         <div id="i_qna_1_title_content_container" 
+            class="cDivRelativeW cDivPtagHmVisible"
+            style="width: 80%; height: 100%; margin: 0; padding: 0; border: none; left: 3%">      
+            <p id="i_qna_1_title_content_txt" class="cPtagHmVisible cPtagFontSizeContent cFontColorWhiteLight cFontNormalWeight cTextJustifyWidthAlign">
+               지난 1주 동안 대략 몇 시에 잠자리에 드셔서 몇 시에 일어나셨습니까?-잠자리에 드는 시간
+            </p>      
+         </div>
+      </div>
+
+      <div id="i_qna_1_content"
+         class="cDivRelativeH"
+         style="width: 100%; height: 72%; margin: 0 auto; padding: 0; top: 2%;">
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="time" name="qna_1_group" value="1">
+               <!-- <input type="radio" name="qna_1_group" value="1"/>                -->
+            </div>            
+                     
+         </div>         
+      </div>
+   </div>
+
+
+   <!-- 설문조사 문제 레이아웃 -->
+   <div id="i_qna_3_container"
+      class="cDivRelativeH cBorderRadiusAll_10 cShadowBoxGray1px"
+      style="width: 80%; height: 30%; margin: 0 auto; padding: 0; border-top: none; top: 15%;">
+      <div id="i_qna_3_tittle"
+         class="cDivRelativeH cBorderRadiusTop_10 cBgBlackMiddle"
+         style="width: 100%; height: 23%; margin: 0 auto; padding: 0; top: 0%;">
+         <div id="i_qna_3_idx_container" 
+            class="cDivRelativeW cDivPtagHmHidden"
+            style="width: 35px; height: 100%; margin: 0; padding: 0; border: none; left: 2%">      
+            <p id="i_qna_3_idx_txt" class="cPtagHmHidden cPtagFontSizeContent cFontColorWhiteLight cFontBoldWeight cTextCenterWidthAlign">
+               [2]
+            </p>      
+         </div>
+         <div id="i_qna_2_title_content_container" 
+            class="cDivRelativeW cDivPtagHmVisible"
+            style="width: 80%; height: 100%; margin: 0; padding: 0; border: none; left: 3%">      
+            <p id="i_qna_2_title_content_txt" class="cPtagHmVisible cPtagFontSizeContent cFontColorWhiteLight cFontNormalWeight cTextJustifyWidthAlign">
+               지난 1주 동안 대략 몇 시에 잠자리에 드셔서 몇 시에 일어나셨습니까?-기상 시간
+            </p>      
+         </div>
+      </div>
+
+      <div id="i_qna_2_content"
+         class="cDivRelativeH"
+         style="width: 100%; height: 72%; margin: 0 auto; padding: 0; top: 2%;">
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">         
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  <input type="time" name="qna_1_group" value="1">
+               </p>                           
+            </div>            
+         </div>         
+      </div>
+   </div>
+
+
+   <!-- 설문조사 문제 레이아웃 -->
+   <div id="i_qna_3_container"
+      class="cDivRelativeH cBorderRadiusAll_10 cShadowBoxGray1px"
+      style="width: 80%; height: 30%; margin: 0 auto; padding: 0; border-top: none; top: 15%;">
+      <div id="i_qna_3_tittle"
+         class="cDivRelativeH cBorderRadiusTop_10 cBgBlackMiddle"
+         style="width: 100%; height: 23%; margin: 0 auto; padding: 0; top: 0%;">
+         <div id="i_qna_3_idx_container" 
+            class="cDivRelativeW cDivPtagHmHidden"
+            style="width: 35px; height: 100%; margin: 0; padding: 0; border: none; left: 2%">      
+            <p id="i_qna_3_idx_txt" class="cPtagHmHidden cPtagFontSizeContent cFontColorWhiteLight cFontBoldWeight cTextCenterWidthAlign">
+               [3]
+            </p>      
+         </div>
+         <div id="i_qna_3_title_content_container" 
+            class="cDivRelativeW cDivPtagHmVisible"
+            style="width: 80%; height: 100%; margin: 0; padding: 0; border: none; left: 3%">      
+            <p id="i_qna_3_title_content_txt" class="cPtagHmVisible cPtagFontSizeContent cFontColorWhiteLight cFontNormalWeight cTextJustifyWidthAlign">
+               현재 귀하는 잠들기가 어렵습니까?
+            </p>      
+         </div>
+      </div>
+
+      <div id="i_qna_3_content"
+         class="cDivRelativeH"
+         style="width: 100%; height: 72%; margin: 0 auto; padding: 0; top: 2%;">
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="1"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  아니오
+               </p>                           
+            </div>            
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="2"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  가끔(1~2일/주)
+               </p>                           
+            </div>
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="3"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  자주(3~4일/주)
+               </p>                           
+            </div>
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="4"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  거의 매일(5일 이상/주)
+               </p>                           
+            </div>
+         </div>         
+      </div>
+   </div>
+
+
+   <!-- 설문조사 문제 레이아웃 -->
+   <div id="i_qna_3_container"
+      class="cDivRelativeH cBorderRadiusAll_10 cShadowBoxGray1px"
+      style="width: 80%; height: 30%; margin: 0 auto; padding: 0; border-top: none; top: 15%;">
+      <div id="i_qna_3_tittle"
+         class="cDivRelativeH cBorderRadiusTop_10 cBgBlackMiddle"
+         style="width: 100%; height: 23%; margin: 0 auto; padding: 0; top: 0%;">
+         <div id="i_qna_3_idx_container" 
+            class="cDivRelativeW cDivPtagHmHidden"
+            style="width: 35px; height: 100%; margin: 0; padding: 0; border: none; left: 2%">      
+            <p id="i_qna_3_idx_txt" class="cPtagHmHidden cPtagFontSizeContent cFontColorWhiteLight cFontBoldWeight cTextCenterWidthAlign">
+               [4]
+            </p>      
+         </div>
+         <div id="i_qna_4_title_content_container" 
+            class="cDivRelativeW cDivPtagHmVisible"
+            style="width: 80%; height: 100%; margin: 0; padding: 0; border: none; left: 3%">      
+            <p id="i_qna_4_title_content_txt" class="cPtagHmVisible cPtagFontSizeContent cFontColorWhiteLight cFontNormalWeight cTextJustifyWidthAlign">
+               현재 귀하는 주무시다가 깨시면 다시 잠들기가 어려우십니까?
+            </p>      
+         </div>
+      </div>
+
+      <div id="i_qna_4_content"
+         class="cDivRelativeH"
+         style="width: 100%; height: 72%; margin: 0 auto; padding: 0; top: 2%;">
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_4_group" value="1"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  아니오
+               </p>                           
+            </div>            
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_4_group" value="2"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  가끔(1~2일/주)
+               </p>                           
+            </div>
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_4_group" value="3"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  자주(3~4일/주)
+               </p>                           
+            </div>
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_4_group" value="4"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  거의 매일(5일 이상/주)
+               </p>                           
+            </div>
+         </div>      
+      </div>
+   </div>
+
+
+   <!-- 설문조사 문제 레이아웃 -->
+   <div id="i_qna_3_container"
+      class="cDivRelativeH cBorderRadiusAll_10 cShadowBoxGray1px"
+      style="width: 80%; height: 30%; margin: 0 auto; padding: 0; border-top: none; top: 15%;">
+      <div id="i_qna_3_tittle"
+         class="cDivRelativeH cBorderRadiusTop_10 cBgBlackMiddle"
+         style="width: 100%; height: 23%; margin: 0 auto; padding: 0; top: 0%;">
+         <div id="i_qna_3_idx_container" 
+            class="cDivRelativeW cDivPtagHmHidden"
+            style="width: 35px; height: 100%; margin: 0; padding: 0; border: none; left: 2%">      
+            <p id="i_qna_3_idx_txt" class="cPtagHmHidden cPtagFontSizeContent cFontColorWhiteLight cFontBoldWeight cTextCenterWidthAlign">
+               [5]
+            </p>      
+         </div>
+         <div id="i_qna_5_title_content_container" 
+            class="cDivRelativeW cDivPtagHmVisible"
+            style="width: 80%; height: 100%; margin: 0; padding: 0; border: none; left: 3%">      
+            <p id="i_qna_5_title_content_txt" class="cPtagHmVisible cPtagFontSizeContent cFontColorWhiteLight cFontNormalWeight cTextJustifyWidthAlign">
+               몸에 땀이 날 정도의 규칙적인 운동을 한다면 어떤 운동을 하고 계십니까?
+            </p>      
+         </div>
+      </div>
+
+      <div id="i_qna_5_content"
+         class="cDivRelativeH"
+         style="width: 100%; height: 72%; margin: 0 auto; padding: 0; top: 2%;">
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_5_group" value="1"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  없음
+               </p>                           
+            </div>            
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_5_group" value="2"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  있음
+               </p>                           
+            </div>
+         </div>         
+      </div>
+   </div>
+
+   <!-- 설문조사 문제 레이아웃 -->
+   <div id="i_qna_3_container"
+      class="cDivRelativeH cBorderRadiusAll_10 cShadowBoxGray1px"
+      style="width: 80%; height: 30%; margin: 0 auto; padding: 0; border-top: none; top: 15%;">
+      <div id="i_qna_3_tittle"
+         class="cDivRelativeH cBorderRadiusTop_10 cBgBlackMiddle"
+         style="width: 100%; height: 23%; margin: 0 auto; padding: 0; top: 0%;">
+         <div id="i_qna_3_idx_container" 
+            class="cDivRelativeW cDivPtagHmHidden"
+            style="width: 35px; height: 100%; margin: 0; padding: 0; border: none; left: 2%">      
+            <p id="i_qna_3_idx_txt" class="cPtagHmHidden cPtagFontSizeContent cFontColorWhiteLight cFontBoldWeight cTextCenterWidthAlign">
+               [6]
+            </p>      
+         </div>
+         <div id="i_qna_6_title_content_container" 
+            class="cDivRelativeW cDivPtagHmVisible"
+            style="width: 80%; height: 100%; margin: 0; padding: 0; border: none; left: 3%">      
+            <p id="i_qna_6_title_content_txt" class="cPtagHmVisible cPtagFontSizeContent cFontColorWhiteLight cFontNormalWeight cTextJustifyWidthAlign">
+               평균적으로 산보/산책(걷기 운동)을 얼마나 하십니까?
+            </p>      
+         </div>
+      </div>
+
+      <div id="i_qna_6_content"
+         class="cDivRelativeH"
+         style="width: 100%; height: 72%; margin: 0 auto; padding: 0; top: 2%;">
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_6_group" value="1"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  하지않음
+               </p>                           
+            </div>            
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_6_group" value="2"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  <input type="text">
+               </p>                           
+            </div>
+         </div>         
+      </div>
+   </div>
+
+    <!-- 설문조사 문제 레이아웃 -->
+    <div id="i_qna_3_container"
+    class="cDivRelativeH cBorderRadiusAll_10 cShadowBoxGray1px"
+    style="width: 80%; height: 30%; margin: 0 auto; padding: 0; border-top: none; top: 15%;">
+    <div id="i_qna_3_tittle"
+       class="cDivRelativeH cBorderRadiusTop_10 cBgBlackMiddle"
+       style="width: 100%; height: 23%; margin: 0 auto; padding: 0; top: 0%;">
+       <div id="i_qna_3_idx_container" 
+          class="cDivRelativeW cDivPtagHmHidden"
+          style="width: 35px; height: 100%; margin: 0; padding: 0; border: none; left: 2%">      
+          <p id="i_qna_3_idx_txt" class="cPtagHmHidden cPtagFontSizeContent cFontColorWhiteLight cFontBoldWeight cTextCenterWidthAlign">
+             [7]
+          </p>      
+       </div>
+       <div id="i_qna_6_title_content_container" 
+          class="cDivRelativeW cDivPtagHmVisible"
+          style="width: 80%; height: 100%; margin: 0; padding: 0; border: none; left: 3%">      
+          <p id="i_qna_6_title_content_txt" class="cPtagHmVisible cPtagFontSizeContent cFontColorWhiteLight cFontNormalWeight cTextJustifyWidthAlign">
+             평균적으로 산보(산책, 걷기운동)을 얼마나 하십니까?
+          </p>      
+       </div>
+    </div>
+
+    <div id="i_qna_6_content"
+       class="cDivRelativeH"
+       style="width: 100%; height: 72%; margin: 0 auto; padding: 0; top: 2%;">
+       <div class="cDivRelativeH"
+          style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+          <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+             <input type="radio" name="qna_6_group" value="1"/>               
+          </div>            
+          <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+             <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                하지않음
+             </p>                           
+          </div>            
+       </div>   
+       <div class="cDivRelativeH"
+          style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+          <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+             <input type="radio" name="qna_6_group" value="2"/>               
+          </div>            
+          <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+             <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                <input type="text">
+             </p>                           
+          </div>
+       </div>         
+    </div>
+ </div>
+
+  <!-- 설문조사 문제 레이아웃 -->
+  <div id="i_qna_3_container"
+  class="cDivRelativeH cBorderRadiusAll_10 cShadowBoxGray1px"
+  style="width: 80%; height: 30%; margin: 0 auto; padding: 0; border-top: none; top: 15%;">
+  <div id="i_qna_3_tittle"
+     class="cDivRelativeH cBorderRadiusTop_10 cBgBlackMiddle"
+     style="width: 100%; height: 23%; margin: 0 auto; padding: 0; top: 0%;">
+     <div id="i_qna_3_idx_container" 
+        class="cDivRelativeW cDivPtagHmHidden"
+        style="width: 35px; height: 100%; margin: 0; padding: 0; border: none; left: 2%">      
+        <p id="i_qna_3_idx_txt" class="cPtagHmHidden cPtagFontSizeContent cFontColorWhiteLight cFontBoldWeight cTextCenterWidthAlign">
+           [8]
+        </p>      
+     </div>
+     <div id="i_qna_6_title_content_container" 
+        class="cDivRelativeW cDivPtagHmVisible"
+        style="width: 80%; height: 100%; margin: 0; padding: 0; border: none; left: 3%">      
+        <p id="i_qna_6_title_content_txt" class="cPtagHmVisible cPtagFontSizeContent cFontColorWhiteLight cFontNormalWeight cTextJustifyWidthAlign">
+           평균적으로 산보/산책(걷기 운동)을 얼마나 하십니까?
+        </p>      
+     </div>
+  </div>
+
+  <div id="i_qna_6_content"
+     class="cDivRelativeH"
+     style="width: 100%; height: 72%; margin: 0 auto; padding: 0; top: 2%;">
+     <div class="cDivRelativeH"
+        style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+        <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+           <input type="radio" name="qna_6_group" value="1"/>               
+        </div>            
+        <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+           <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+              하지않음
+           </p>                           
+        </div>            
+     </div>   
+     <div class="cDivRelativeH"
+        style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+        <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+           <input type="radio" name="qna_6_group" value="2"/>               
+        </div>            
+        <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+           <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+              <input type="text">
+           </p>                           
+        </div>
+     </div>         
+  </div>
+</div>
+
+   <!-- 설문조사 문제 레이아웃 -->
+   <div id="i_qna_3_container"
+      class="cDivRelativeH cBorderRadiusAll_10 cShadowBoxGray1px"
+      style="width: 80%; height: 30%; margin: 0 auto; padding: 0; border-top: none; top: 15%;">
+      <div id="i_qna_3_tittle"
+         class="cDivRelativeH cBorderRadiusTop_10 cBgBlackMiddle"
+         style="width: 100%; height: 23%; margin: 0 auto; padding: 0; top: 0%;">
+         <div id="i_qna_3_idx_container" 
+            class="cDivRelativeW cDivPtagHmHidden"
+            style="width: 35px; height: 100%; margin: 0; padding: 0; border: none; left: 2%">      
+            <p id="i_qna_3_idx_txt" class="cPtagHmHidden cPtagFontSizeContent cFontColorWhiteLight cFontBoldWeight cTextCenterWidthAlign">
+               [9]
+            </p>      
+         </div>
+         <div id="i_qna_3_title_content_container" 
+            class="cDivRelativeW cDivPtagHmVisible"
+            style="width: 80%; height: 100%; margin: 0; padding: 0; border: none; left: 3%">      
+            <p id="i_qna_3_title_content_txt" class="cPtagHmVisible cPtagFontSizeContent cFontColorWhiteLight cFontNormalWeight cTextJustifyWidthAlign">
+               지난 한주, 정신적 또는 육체적으로 감당하기 힘들다고 느낀 적이 있습니까?
+            </p>      
+         </div>
+      </div>
+
+      <div id="i_qna_3_content"
+         class="cDivRelativeH"
+         style="width: 100%; height: 72%; margin: 0 auto; padding: 0; top: 2%;">
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="1"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  1.없다
+               </p>                           
+            </div>            
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="2"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  2. 가끔 있다
+               </p>                           
+            </div>
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="3"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  3 자주 있다
+               </p>                           
+            </div>
+         </div>           
+      </div>
+   </div>
+
+      <!-- 설문조사 문제 레이아웃 -->
+      <div id="i_qna_3_container"
+      class="cDivRelativeH cBorderRadiusAll_10 cShadowBoxGray1px"
+      style="width: 80%; height: 30%; margin: 0 auto; padding: 0; border-top: none; top: 15%;">
+      <div id="i_qna_3_tittle"
+         class="cDivRelativeH cBorderRadiusTop_10 cBgBlackMiddle"
+         style="width: 100%; height: 23%; margin: 0 auto; padding: 0; top: 0%;">
+         <div id="i_qna_3_idx_container" 
+            class="cDivRelativeW cDivPtagHmHidden"
+            style="width: 35px; height: 100%; margin: 0; padding: 0; border: none; left: 2%">      
+            <p id="i_qna_3_idx_txt" class="cPtagHmHidden cPtagFontSizeContent cFontColorWhiteLight cFontBoldWeight cTextCenterWidthAlign">
+               [10]
+            </p>      
+         </div>
+         <div id="i_qna_3_title_content_container" 
+            class="cDivRelativeW cDivPtagHmVisible"
+            style="width: 80%; height: 100%; margin: 0; padding: 0; border: none; left: 3%">      
+            <p id="i_qna_3_title_content_txt" class="cPtagHmVisible cPtagFontSizeContent cFontColorWhiteLight cFontNormalWeight cTextJustifyWidthAlign">
+               지난 한주, 매우 편안하며 건강하다고 느낀다.
+            </p>      
+         </div>
+      </div>
+
+      <div id="i_qna_3_content"
+         class="cDivRelativeH"
+         style="width: 100%; height: 72%; margin: 0 auto; padding: 0; top: 2%;">
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="1"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  1 전혀 그렇지 않다
+               </p>                           
+            </div>            
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="2"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  2 약간 (가끔) 그렇다
+               </p>                           
+            </div>
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="3"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  대부분 그렇다
+               </p>                           
+            </div>
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="4"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  항상 그렇다
+               </p>                           
+            </div>
+         </div>         
+      </div>
+   </div>
+
+   <!-- 설문조사 문제 레이아웃 -->
+   <div id="i_qna_3_container"
+      class="cDivRelativeH cBorderRadiusAll_10 cShadowBoxGray1px"
+      style="width: 80%; height: 30%; margin: 0 auto; padding: 0; border-top: none; top: 15%;">
+      <div id="i_qna_3_tittle"
+         class="cDivRelativeH cBorderRadiusTop_10 cBgBlackMiddle"
+         style="width: 100%; height: 23%; margin: 0 auto; padding: 0; top: 0%;">
+         <div id="i_qna_3_idx_container" 
+            class="cDivRelativeW cDivPtagHmHidden"
+            style="width: 35px; height: 100%; margin: 0; padding: 0; border: none; left: 2%">      
+            <p id="i_qna_3_idx_txt" class="cPtagHmHidden cPtagFontSizeContent cFontColorWhiteLight cFontBoldWeight cTextCenterWidthAlign">
+               [11]
+            </p>      
+         </div>
+         <div id="i_qna_3_title_content_container" 
+            class="cDivRelativeW cDivPtagHmVisible"
+            style="width: 80%; height: 100%; margin: 0; padding: 0; border: none; left: 3%">      
+            <p id="i_qna_3_title_content_txt" class="cPtagHmVisible cPtagFontSizeContent cFontColorWhiteLight cFontNormalWeight cTextJustifyWidthAlign">
+               지난 한주, 잠자고 난 후에도 개운한 감이 없다.
+            </p>      
+         </div>
+      </div>
+
+      <div id="i_qna_3_content"
+         class="cDivRelativeH"
+         style="width: 100%; height: 72%; margin: 0 auto; padding: 0; top: 2%;">
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="1"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  전혀 그렇지 않다
+               </p>                           
+            </div>            
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="2"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  약간 (가끔) 그렇다
+               </p>                           
+            </div>
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="3"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  대부분 그렇다
+               </p>                           
+            </div>
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="4"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  항상 그렇다
+               </p>                           
+            </div>
+         </div>         
+      </div>
+   </div>
+
+      <!-- 설문조사 문제 레이아웃 -->
+      <div id="i_qna_3_container"
+      class="cDivRelativeH cBorderRadiusAll_10 cShadowBoxGray1px"
+      style="width: 80%; height: 30%; margin: 0 auto; padding: 0; border-top: none; top: 15%;">
+      <div id="i_qna_3_tittle"
+         class="cDivRelativeH cBorderRadiusTop_10 cBgBlackMiddle"
+         style="width: 100%; height: 23%; margin: 0 auto; padding: 0; top: 0%;">
+         <div id="i_qna_3_idx_container" 
+            class="cDivRelativeW cDivPtagHmHidden"
+            style="width: 35px; height: 100%; margin: 0; padding: 0; border: none; left: 2%">      
+            <p id="i_qna_3_idx_txt" class="cPtagHmHidden cPtagFontSizeContent cFontColorWhiteLight cFontBoldWeight cTextCenterWidthAlign">
+               [12]
+            </p>      
+         </div>
+         <div id="i_qna_3_title_content_container" 
+            class="cDivRelativeW cDivPtagHmVisible"
+            style="width: 80%; height: 100%; margin: 0; padding: 0; border: none; left: 3%">      
+            <p id="i_qna_3_title_content_txt" class="cPtagHmVisible cPtagFontSizeContent cFontColorWhiteLight cFontNormalWeight cTextJustifyWidthAlign">
+               지난 한주, 무슨 일을 하든 정신을 집중하기가 힘들었다.
+            </p>      
+         </div>
+      </div>
+
+      <div id="i_qna_3_content"
+         class="cDivRelativeH"
+         style="width: 100%; height: 72%; margin: 0 auto; padding: 0; top: 2%;">
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="1"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  전혀 그렇지 않다
+               </p>                           
+            </div>            
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="2"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  약간 (가끔) 그렇다
+               </p>                           
+            </div>
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="3"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  대부분 그렇다
+               </p>                           
+            </div>
+         </div>   
+         <div class="cDivRelativeH"
+            style="width: 90%; height: 20%; margin: 0; padding: 0; top: 0%; left: 2.2%">
+            <div class="cDivRelativeW" style="width: 30px; height: 100%;">
+               <input type="radio" name="qna_3_group" value="4"/>               
+            </div>            
+            <div class="cDivRelativeW cDivPtagHmVisible" style="width: 150px; height: 20px;">
+               <p class="cPtagHmVisible cPtagFontSizeTrail cFontColorBlackMiddle cFontNormalWeight cTextLeftWidthAlign">
+                  항상 그렇다
+               </p>                           
+            </div>
+         </div>         
+      </div>
+   </div>
+
+   
+
+   <!-- 설문조사 경고 박스 레이아웃 -->
+   <div id="i_warm_container"
+      class="cDivRelativeH cDivPtagHmVisible cBorderRadiusAll_10 cBgWhiteLight cBorderAllRedMiddle_1"
+      style="width: 70%; height: 8%; margin: 0 auto; padding: 5%; top: 24%;">
+      <p id="i_warm_txt" class="cPtagHmVisible cPtagFontSizeContent cFontColorRedMiddle cFontNormalWeight cTextJustifyWidthAlign">         
+         본 실험은 실험 관리를 준수하여 귀하의 개인정보를 누설하지 않을 것입니다. 문의: 010-xxxx-xxxx 팀장 송채원 Ubi-lab @ SCH
+      </p>
+   </div>
+
+
+   <!-- 제출 버튼 박스 레이아웃 -->
+   <div id="i_submit_container"
+      class="cDivRelativeH cDivPtagHmVisible cBorderRadiusAll_10 cBgBlueMiddle cCursorPointer cMouseHoverBgBlueBold"
+      style="width: 80%; height: 7%; margin: 0 auto; padding: 0; border: none; top: 27%;"
+      onclick="checkAnswer();">
+      <p id="i_submit_txt" class="cPtagHmVisible cPtagFontSizeContent cFontColorWhiteLight cFontBoldWeight cTextCenterWidthAlign">
+         제출 하기
+      </p>
+   </div>
+
+
+   <!-- 공백 레이아웃 -->
+   <div id="i_null_container"
+      class="cDivRelativeH cBgWhiteLight"
+      style="width: 100%; height: 10%; margin: 0 auto; padding: 0%; border: none; top: 30%;">      
+   </div>
+   
+
+</body>
+
+</html>

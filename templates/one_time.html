@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css" type="text/css">
+    <!-- <script src="../static/jscript.js" type="text/js"></script> -->
+    <script type="text/javascript" src="{{ url_for('static', filename='jscript.js') }}"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <title> 
+        [KNIH] AT SCH Univ.
+    </title>
+</head>
+<script type="text/javascript">
+    // 활성화 비활성화
+
+    $(document).ready(function () {
+        $('.activation').on('click', function () {
+            var valueCheck = $('.activation:checked').val(); // 체크된 Radio 버튼의 값을 가져옵니다.
+            if (valueCheck == 'yes') {
+                $('.active').attr('disabled', false); // 과일 종류를 입력하는 input 을 활성화합니다.
+                $('.active').focus(); // 과일 종류를 입력하는 input 에 커서를 이동시킵니다.
+            } else {
+                $('.active').attr('disabled', true); // 과일 종류를 입력하는 input 을 비활성화합니다.
+                $("input:radio[name='snoring-activation']").prop('checked', false)
+            }
+        });
+    });
+</script>
+<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<body>
+
+    <h1>One-Time Survey</h1>
+    <h2>생활 습관</h2>
+    <!-- Create Form -->
+    <form>
+        <div id="form">
+            <!-- 핸드폰 번호 입력 -->
+            <!-- Details -->
+            <div class="form-control">
+                <label for="name" id="phone-number">
+                    1. 핸드폰 번호를 입력해주세요
+                </label>
+
+                <!-- Input Type Text -->
+                <input type="tel" id="phonenum" maxlength="3" onkeyup="moveCursora(this)" placeholder="010" /> -
+                <input type="tel" id="phonenum1" maxlength="4" onkeyup="moveCursorb(this)" placeholder="1234" /> -
+                <input type="tel" id="phonenum2" maxlength="4" placeholder="5678" />
+            </div>
+            <!-- 핸드폰 종류 선택 -->
+            <div class="form-control">
+                <label for="phone" id="type-phone">
+                    2. 스마트폰 종류를 선택해주세요
+                </label>
+
+                <!-- Input Type Email-->
+                <input type="radio" name="phone" id="galaxy" value="1" />
+                갤럭시
+                <input type="radio" name="phone" id="iphone" value="2" />
+                아이폰
+
+            </div>
+            <!-- 스마트 밴드 선택 -->
+            <div class="form-control">
+                <label for="band" id="smart-band">
+                    3. 스마트밴드 종류를 선택해주세요
+                </label>
+
+                <!-- Input Type Email-->
+                <input type="radio" name="band" id="galaxywatch" value="1" />
+                갤럭시워치
+                <input type="radio" name="band" id="fitbit" value="2" />
+                핏빗
+            </div>
+            <!-- 나이 선택 -->
+            <div class="form-control">
+                <label for="age" id="label-age">
+                    4. 출생년도를 입력해주세요
+                </label>
+
+                <!-- Input Type Text -->
+                <input type="number" id="age" maxlength="4" placeholder="1999" name="year" />
+            </div>
+            <!-- 성별 선택 -->
+            <div class="form-control">
+                <label for="sex" id="label-sex">
+                    5. 성별을 선택해주세요
+                </label>
+                <!-- Input Type Email-->
+                <input type="radio" name="sex" id="male" />
+                남자
+                <input type="radio" name="sex" id="female" />
+                여자
+            </div>
+            <!-- 키 선택  -->
+            <div class="form-control">
+                <label for="height" id="label-height">
+                    6. 신장을 선택해주세요
+                </label>
+                <label for="height" id="label-height">
+                    <input type="radio" name="height" id="150" value="1" />
+                    150 이하
+                </label>
+                <label for="height" id="label-height">
+                    <input type="radio" name="height" id="5060" value="2" />
+                    150 초과 160 이하
+                </label>
+                <label for="height" id="label-height">
+                    <input type="radio" name="height" id="6070" value="3" />
+                    160 초과 170 이하
+                </label>
+                <label for="height" id="label-height">
+                    <input type="radio" name="height" id="7080" value="4" />
+                    170 초과 180 이하
+                </label>
+                <label for="height" id="label-height">
+                    <input type="radio" name="height" id="180" value="5" />
+                    180 초과
+                </label>
+            </div>
+            <!-- 몸무게 입력 -->
+            <div class="form-control">
+                <label for="weight" id="label-weight">
+                    7. 체중을 선택해주세요
+                </label>
+                <label for="weight" id="label-weight">
+                    <input type="radio" name="weight" id="50" value="1" />
+                    50 이하
+                </label>
+                <label for="weight" id="label-weight">
+                    <input type="radio" name="weight" id="6070" value="2" />
+                    50 초과 60 이하
+                </label>
+                <label for="weight" id="label-weight">
+                    <input type="radio" name="weight" id="6070" value="3" />
+                    60 초과 70 이하
+                </label>
+                <label for="weight" id="label-weight">
+                    <input type="radio" name="weight" id="6070" value="4" />
+                    70 초과 80 이하
+                </label>
+                <label for="weight" id="label-weight">
+                    <input type="radio" name="weight" id="6070" value="5" />
+                    80 초과
+                </label>
+            </div>
+            <!-- 코골이 -->
+            <div class="form-control">
+                <label for="snoring" id="label-snoring">
+                    8. 당신은 큰소리로 코를 곤다는 말을 들은적이 있습니까?
+                </label>
+                <input type="radio" class="activation" name="snoring" id="s-yes" value="yes" />
+                예
+                <input type="radio" class="activation" name="snoring" id="s-no" value="no" />
+                아니오
+            </div>
+            <!-- 만약 코골이를 한다면 -->
+            <div class="form-control">
+                <label for="age" id="label-age">
+                    9. 당신은 얼마나 자주 코를 고십니까?
+                </label>
+                <label for="age" id="label-age">
+                    <input type="radio" class="active" name="snoring-activation" id="a-s" />
+                    거의 없음
+                </label>
+                <label for="age" id="label-age">
+                    <input type="radio" class="active" name="snoring-activation" id="a-s" />
+                    1 - 3회 (월)
+                </label>
+                <label for="age" id="label-age">
+                    <input type="radio" class="active" name="snoring-activation" id="a-s" />
+                    1 - 3회 (주)
+                </label>
+                <label for="age" id="label-age">
+                    <input type="radio" class="active" name="snoring-activation" id="a-s" />
+                    4 - 5회 (주)
+                </label>
+                <label for="age" id="label-age">
+                    <input type="radio" class="active" name="snoring-activation" id="a-s" />
+                    거의 매일 (주 6회 이상)
+                </label>
+            </div>
+            <!-- 활동 상태 확인 (팝업창) -->
+            <div class="form-control">
+                <label for="age" id="label-age">
+                    10. 귀하의 평소 활동 상태는 어떠십니까?
+                </label>
+                <input type="button" value="상세 보기" onclick="showPopup();" />
+                <label for="age" id="label-age">
+                    <input type="radio" name="activation-status" id="male" />
+                    비활동적
+                </label>
+                <label for="age" id="label-age">
+                    <input type="radio" name="activation-status" id="male" />
+                    저활동적
+                </label>
+                <label for="age" id="label-age">
+                    <input type="radio" name="activation-status" id="male" />
+                    활동적
+                </label>
+                <label for="age" id="label-age">
+                    <input type="radio" name="activation-status" id="male" />
+                    매우 활동적
+                </label>
+            </div>
+        </div>
+        <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- 정신 건강 설문 조사 -->
+        <h2>정신 건강</h2>
+        <!-- <form id="form"> -->
+        <div id="form">
+            <!-- 건강 자가 진단 -->
+
+            <div class="form-control">
+                <label for="health" id="label-name">
+                    1. 현재 귀하의 건강상태가 어떻다고 생각하십니까?
+                </label>
+                <label for="name" id="label-name">
+                    <input type="radio" name="health-status" id="galaxy" />
+                    매우 건강하다
+                </label>
+                <label for="name" id="label-name">
+                    <input type="radio" name="health-status" id="galaxy" />
+                    건강하다
+                </label>
+                <label for="name" id="label-name">
+                    <input type="radio" name="health-status" id="galaxy" />
+                    보통이다
+                </label>
+                <label for="name" id="label-name">
+                    <input type="radio" name="health-status" id="galaxy" />
+                    건강하지 못하다
+                </label>
+                <label for="name" id="label-name">
+                    <input type="radio" name="health-status" id="galaxy" />
+                    매우 건강하지 못하다
+                </label>
+            </div>
+
+            <div class="form-control">
+                <label for="email" id="label-email">
+                    2. 현재 귀하의 경제상황이 어떻다고 생각하십니까?
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="eco" id="galaxy" />
+                    여유가 있다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="eco" id="iphone" />
+                    지낼만 하다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="eco" id="iphone" />
+                    조금 어려운 편이다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="eco" id="iphone" />
+                    매우 어렵다
+                </label>
+            </div>
+            <div class="form-control">
+                <label for="email" id="label-email">
+                    3. 최근 안절부절 못하거나 성질이 심술궂게 되어진다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="property" id="galaxy" />
+                    전혀 그렇지 않다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="property" id="iphone" />
+                    약간 그렇다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="property" id="iphone" />
+                    대부분 그렇다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="property" id="iphone" />
+                    항상 그렇다
+                </label>
+            </div>
+            <div class="form-control">
+                <label for="email" id="label-email">
+                    4. 최근 불행하고 우울감을 느낀다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="unha" id="galaxy" />
+                    전혀 그렇지 않다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="unha" id="iphone" />
+                    약간 그렇다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="unha" id="iphone" />
+                    대부분 그렇다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="unha" id="iphone" />
+                    항상 그렇다
+                </label>
+            </div>
+            <div class="form-control">
+                <label for="email" id="label-email">
+                    5. 최근 나 자신에 대한 신뢰감이 없어지고 있다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="trust" id="galaxy" />
+                    전혀 그렇지 않다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="trust" id="iphone" />
+                    약간 그렇다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="trust" id="iphone" />
+                    대부분 그렇다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="trust" id="iphone" />
+                    항상 그렇다
+                </label>
+            </div>
+            <div class="form-control">
+                <label for="email" id="label-email">
+                    6. 최근 모든 것을 고려해 볼 때 행복감을 느낀다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="happy" id="galaxy" />
+                    전혀 그렇지 않다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="happy" id="iphone" />
+                    약간 그렇다
+                </label>
+            </label>
+            <label for="email" id="label-email">
+                <input type="radio" name="happy" id="iphone" />
+                대부분 그렇다
+            </label>
+            <label for="email" id="label-email">
+                <input type="radio" name="happy" id="iphone" />
+                항상 그렇다
+            </label>
+            </div>
+            <div class="form-control">
+                <label for="email" id="label-email">
+                    7. 최근 세상에 홀로 있는 듯한 외로움을 느낀다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="loneliness" id="galaxy" />
+                    전혀 그렇지 않다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="loneliness" id="iphone" />
+                    약간 그렇다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="loneliness" id="iphone" />
+                    대부분 그렇다
+                </label>
+                <label for="email" id="label-email">
+                    <input type="radio" name="loneliness" id="iphone" />
+                    항상 그렇다
+                </label>
+            </div>
+        </div>
+        <button type="submit" value="submit">
+            제출하기
+        </button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!-- 
+    [진행상황]
+
+    [100%]  1. 설문 페이지 프레임 제작
+            2. 로그인 시 어떤 설문 페이지를 들어갈 것인지 고르는 중간다리 역할의 페이지 제작
+    [40%]   3. 모비우스 및 DB에 업로드 하는 코드 작성 필요
+            4. 회원가입 및 로그인 시 입력 내용 겁증 코드 작성 필요
+            5. 회원가입 및 로그인 시 입력 폼 사용자 편의성 최적화 필요
+            6. 로그인 후 설문페이지에서 자신의 아이디가 담긴 정보를 쿠키나 기타 방법을 통해 저장해야 이를 데이터 업로드 시 활용 가능
+            6. 관리자 페이지 제작(DLC)
+
+
+-->
+
+
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Untitled Document</title>
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+</head>
+
+
+<body>
+    <style>
+        td,
+        h4 {
+            text-align: center;
+        }
+
+        tbody tr td:first-child {
+            text-align: left;
+        }
+
+        input[type='radio'] {
+            visibility: hidden;
+        }
+
+        input[type='radio']:after {
+            width: 1.5em;
+            height: 1.5em;
+
+            border-radius: 0.75em;
+            background-color: #fff;
+            content: '';
+            display: inline-block;
+            visibility: visible;
+            border: 2px solid #8d8d8e;
+        }
+
+        input[type='radio']:checked:after {
+
+            background-color: #007bff;
+            content: '';
+            display: inline-block;
+            visibility: visible;
+            border: 2px solid #8d8d8e;
+
+        }
+    </style>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>설문지 이름</h4>
+                <div class="table-responsive">
+                    <form id="research" class="form-horizontal">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>항목</td>
+
+                                    <td>매우아니다</td>
+                                    <td>아니다</td>
+                                    <td>보통이다</td>
+                                    <td>그렇다</td>
+                                    <td>매우 그렇다</td>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr id="s1">
+                                    <td>설문항목<img id="s1_sel" src="image/select.jpg" height="20"
+                                            style="visibility: hidden;"></td>
+
+                                    <td><input class="skin" type="radio" name="s1" value="1" /></td>
+                                    <td><input class="skin" type="radio" name="s1" value="2" /></td>
+                                    <td><input class="skin" type="radio" name="s1" value="3" /></td>
+                                    <td><input class="skin" type="radio" name="s1" value="4" /></td>
+                                    <td><input class="skin" type="radio" name="s1" value="5" /></td>
+                                </tr>
+
+                                <tr>
+                                    <td>설문항목<img id="s2_sel" src="image/select.jpg" height="20"
+                                            style="visibility: hidden;"></td>
+
+                                    <td><input class="skin" type="radio" name="s2" value="6" /></td>
+                                    <td><input class="skin" type="radio" name="s2" value="7" /></td>
+                                    <td><input class="skin" type="radio" name="s2" value="8" /></td>
+                                    <td><input class="skin" type="radio" name="s2" value="9" /></td>
+                                    <td><input class="skin" type="radio" name="s2" value="10" /></td>
+                                </tr>
+
+                                <tr>
+                                    <td>설문항목<img id="s3_sel" src="image/select.jpg" height="20"
+                                            style="visibility: hidden;"></td>
+
+                                    <td><input class="skin" type="radio" name="s3" value="11" /></td>
+                                    <td><input class="skin" type="radio" name="s3" value="12" /></td>
+                                    <td><input class="skin" type="radio" name="s3" value="13" /></td>
+                                    <td><input class="skin" type="radio" name="s3" value="14" /></td>
+                                    <td><input class="skin" type="radio" name="s3" value="15" /></td>
+                                </tr>
+
+                                <tr>
+                                    <td>설문항목<img id="s4_sel" src="image/select.jpg" height="20"
+                                            style="visibility: hidden;"></td>
+
+                                    <td><input class="skin" type="radio" name="s4" value="16" /></td>
+                                    <td><input class="skin" type="radio" name="s4" value="17" /></td>
+                                    <td><input class="skin" type="radio" name="s4" value="18" /></td>
+                                    <td><input class="skin" type="radio" name="s4" value="19" /></td>
+                                    <td><input class="skin" type="radio" name="s4" value="20" /></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </form>
+
+                    <button id="summit" class="btn btn-primary" data-title="제출하기" style="width: 100%;" 
+                        data-toggle="modal" data-target="#result">제출하기</button>
+
+                </div>
+
+                <!-- /.modal-content -->
+
+            </div>
+
+            <!-- /.modal-dialog -->
+
+        </div>
+
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#summit').click(function () {
+
+                    // 제출(summit)시 반응하는 코드
+
+                    // 1. 여기에 DB 업로드 코드 있어야
+
+
+
+
+
+
+
+
+
+                    // 2. 모비우스 업로드 코드
+                    // 2-0. 각 설문의 데이터를 정해진 cnt에 업로드
+                    // 2-1. 업로드 url을 유동적으로 지정할 수 있도록 변수로 지정하는 작업 필요함
+                    // 2-2. 업로드 시 해당 데이터 포맷을 어떻게 할 것인지 고려해야함
+                        var settings = {
+                            "url": "203.253.128.177:7579/Mobius/walwal/training",
+                            "method": "POST",
+                            "timeout": 0,
+                            "headers": {
+                                "Accept": "application/json",
+                                "X-M2M-RI": "12345",
+                                "X-M2M-Origin": "Stuf3S7CA0n",
+                                "Content-Type": "application/vnd.onem2m-res+json; ty=4"
+                            },
+                            "data": "{\n    \"m2m:cin\": {\n        \"con\": \"1\"\n    }\n}",
+                        };
+
+                        $.ajax(settings).done(function (response) {
+                            console.log(response);
+                        });
+
+
+
+                    // radio check      라디오 버튼 검증부  
+                    // 이하 기본 구조    
+                    // var check = $('#rd2').is(':checked');
+                    // alert(check);
+
+                    // var check = $('input[id='rd2']').is(':checked');
+                    // alert(check);
+
+                    var check1 = $('input:radio[name=s1]').is(':checked');
+                    alert('s1_check: ' + check1);
+                    var check2 = $('input:radio[name=s2]').is(':checked');
+                    alert('s2_check: ' + check2);
+                    var check3 = $('input:radio[name=s3]').is(':checked');
+                    alert('s3_check: ' + check3);
+                    var check4 = $('input:radio[name=s4]').is(':checked');
+                    alert('s4_check: ' + check4);
+
+
+                    // radio check 2     체크 안되있을 경우 해당 문항 색 변경, < 표시
+                    if (!check1) {
+                        alert('s1_check: NOT');
+                        document.getElementById("s1_sel").style.visibility = "visible";
+                        document.getElementById("s1").style.color = "red";
+                    }
+                    if (!check2) {
+                        alert('s2_check: NOT');
+                        document.getElementById("s2_sel").style.visibility = "visible";
+                        document.getElementById("s2").style.color = "red";
+                    }
+                    if (!check3) {
+                        alert('s3_check: NOT');
+                        document.getElementById("s3_sel").style.visibility = "visible";
+                        document.getElementById("s3").style.color = "red";
+                    }
+                    if (!check4) {
+                        alert('s4_check: NOT');
+                        document.getElementById("s4_sel").style.visibility = "visible";
+                        document.getElementById("s4").style.color = "red";
+                    }
+
+                });
+            });
+        </script>
+
+
+</body>
+
+</html>
