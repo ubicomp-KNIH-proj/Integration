@@ -13,21 +13,40 @@
 		KNIH 
 	</title>
 	<script type="text/javascript">
+		let ID= '{{value}}'
+		alert(ID)
 		// 팝업창 생성
 		function showPopup() { window.open("pop.html", "a", "width=400, height=300, left=100, top=50"); }
-		
+		var q6_1 = document.getElementById('q6-1')
 		// 활성화 비활성화
 		// $('.tg .tg-0lax').attr('disabled');
 		$(document).ready(function () {
-			$('.here').on('click', function () {
-				$('.tg .tg-0lax').attr('disabled', true); // 과일 종류를 입력하는 input 을 활성화합니다.
+			$('#q6-1').on('click', function () {
+				$('.form-control .tg .tg-0lax .td_block').attr('disabled', true); // 과일 종류를 입력하는 input 을 활성화합니다.
+				// $('.tg').focus(); // 과일 종류를 입력하는 input 에 커서를 이동시킵니다.
+			});
+			$('#q6-2').on('click', function () {
+				$('.form-control .tg .tg-0lax .td_block').attr('disabled', false); // 과일 종류를 입력하는 input 을 활성화합니다.
+				// $('.tg').focus(); // 과일 종류를 입력하는 input 에 커서를 이동시킵니다.
+			});
+			$('#q7-1').on('click', function () {
+				$('.form-control .text_block').attr('disabled', true); // 과일 종류를 입력하는 input 을 활성화합니다.
+				// $('.tg').focus(); // 과일 종류를 입력하는 input 에 커서를 이동시킵니다.
+			});
+			$('#q7-2').on('click', function () {
+				$('.form-control .text_block').attr('disabled', false); // 과일 종류를 입력하는 input 을 활성화합니다.
 				// $('.tg').focus(); // 과일 종류를 입력하는 input 에 커서를 이동시킵니다.
 			});
 		});
+		// var listVar = $('input[name=q6]').is(":checked");
+		// alert(listVar)
+		// var q6_2_2 = document.getElementById('q6-2-2')
+		// q6_2_2.disabled = true
+
 	</script>
 	<style type="text/css">
 		/* border-collapse:collapse; */
-		.tg  {border-spacing:0; font-size:15px;}
+		.tg  {border-spacing:0; font-size:15px; display: block;}
 		.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
 		  overflow:hidden;padding:10px 30px;word-break:normal;}
 		.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
@@ -90,7 +109,7 @@
 
 <body>
 	<h1>One-Week Survey</h1>
-	<h1>생활습관</h1>
+	<h1>생활습관{{value}}</h1>
 
 	<form id="form1">
 		<div class="form-control">
@@ -98,8 +117,8 @@
 				1. 지난 1주 동안 하루 평균 수면 시간(낮잠 포함)은 얼마나 되십니까?
 			</label>
 
-			<input type='text' id="phonenum" name="q1"/>시간
-			<input type='text' id="phonenum1" name="q1"/>분
+			<input type='number' id="phonenum" name="q1"/>시간
+			<input type='number' id="phonenum1" name="q1"/>분
 		</div>
 		<br>
 		<div class="form-control">
@@ -180,7 +199,7 @@
 			<label for="q6-1">
 				<input type="radio" class="here"
 					id="q6-1"
-					name="q6" value="1">없음</input>
+					name="q6" value="1" onclick="changeBg(this.value)">없음</input>
 			</label>
 			<label for="q6-2">
 				<input type="radio" 
@@ -196,24 +215,24 @@
 						  </tr>
 						</thead>
 						<tbody>
-						  <tr>
+						  <tr> 
 							<td class="tg-0pky">1위</td>
-							<td class="tg-0lax"><input name="q6-2-1" type="text" style="font-size:15px;"></td>
+							<td class="tg-0lax"><input class="td_block" name="q6-2-1" type="text" style="font-size:15px;" readonly></td>
 							<!-- style="width:60px;height:5px;font-size:10px;" -->
-							<td class="tg-0lax">주<input name="q6-2-1" type='number' id="num"/>회</td>
-							<td class="tg-0lax"><input name="q6-2-1" type='text' id="time1"/>시간<input type='text' id="time2"/>분</td>
+							<td class="tg-0lax">주<input class="td_block" name="q6-2-1" type='number' id="num"/>회</td>
+							<td class="tg-0lax"><input class="td_block" name="q6-2-1" type='text' id="time1"/>시간<input class="td_block" type='text' id="time2"/>분</td>
 						  </tr>
 						  <tr>
 							<td class="tg-0pky">2위</td>
-							<td class="tg-0lax"><input name="q6-2-2" type="text"></td>
-							<td class="tg-0lax">주<input name="q6-2-2" type='number' id="num"/>회</td>
-							<td class="tg-0lax"><input name="q6-2-2" type='text' id="time1"/>시간<input type='text' id="time2"/>분</td>
+							<td class="tg-0lax"><input class="td_block" name="q6-2-2" id="q6-2-2" type="text"></td>
+							<td class="tg-0lax">주<input class="td_block" name="q6-2-2" type='number' id="num"/>회</td>
+							<td class="tg-0lax"><input class="td_block" name="q6-2-2" type='text' id="time1"/>시간<input class="td_block" type='text' id="time2"/>분</td>
 						  </tr>
 						  <tr>
 							<td class="tg-0pky">3위</td>
-							<td class="tg-0lax"><input name="q6-2-3" type="text"></td>
-							<td class="tg-0lax">주<input name="q6-2-3" type='number' id="num"/>회</td>
-							<td class="tg-0lax"><input name="q6-2-3" type='text' id="time1"/>시간<input type='text' id="time2"/>분</td>
+							<td class="tg-0lax"><input class="td_block" name="q6-2-3" type="text"></td>
+							<td class="tg-0lax">주<input class="td_block" name="q6-2-3" type='number' id="num"/>회</td>
+							<td class="tg-0lax"><input class="td_block" name="q6-2-3" type='text' id="time1"/>시간<input class="td_block"type='text' id="time2"/>분</td>
 						  </tr>
 						</tbody>
 						</table>
@@ -239,8 +258,8 @@
 					<!-- <input type='number' min='10' max='30' step='3'>주 __회 __분</input> -->
 					<!-- <input type='number' min='10' max='30' step='3' placeholder="n회(횟수를 입력하세요)"/> -->
 					<!-- <input type='number' min='10' max='30' step='3' placeholder="n분(시간을 입력하세요)"/> -->
-					<input type='text' id="phonenum"/>회
-					<input type='text' id="phonenum1"/>분
+					<input type='text' id="phonenum" class="text_block"/>회
+					<input type='text' id="phonenum1" class="text_block"/>분
 					
 					<!-- 0회 0분 입력 -->
 			</label>
@@ -390,7 +409,7 @@
 			// var formData1 = $('#form1').serialize()
 			// var formData2 = $('#form2').serialize()
             var postdata = {
-                'formData1':formData1, 'formData2':formData2
+                ID, 'formData1':formData1, 'formData2':formData2
             }
 			console.log(postdata)
 
