@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+
+<html lang="kr">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="../static/style.css" type="text/css">
+   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+   <title>
+      Daily Survey
+   </title>
+
+</head>
+<script type="text/javascript">
+   $(document).ready(function () {
+      $("#submit").click(function () {
+         if ($(':radio[name="mood"]:checked').length < 1) {
+            alert("답변을 입력해주세요");
+            alert(id)
+            $('#mood1').focus();
+            event.preventDefault();
+         }
+      });
+   });
+   function uploadFile() {
+      var file_val = $("#f").val();
+      if (file_val != "") {
+         var ext = file_val.split('.').pop().toLowerCase();
+         if ($.inArray(ext, ['csv']) == -1) {
+            alert('CSV 파일만 업로드 할 수 있습니다.');
+            event.preventDefault();
+         }
+      }
+      var MAXSIZE = 10 * 1024 * 1024;
+      var MINSIZE = 0;
+      var file_size = $("#f")[0].files[0].size;
+      if (file_size > MAXSIZE) {
+         alert("10MB이하만 제출하실 수 있습니다.");
+         $("#file").val("");
+         event.preventDefault();
+      }
+   }
+   let user_id = '{{data[1]}}'
+
+</script>
+
+<body>
+
+   <h1 id="title_mood">오늘 하루 어떠셨나요?</h1>
+   <p>횟수: {{data[0]}}</p>
+   <!-- Create Form -->
+   <form id="form" action="/survey/day" method="POST" name="fm" enctype="multipart/form-data">
+      <div class="form-control">
+         <!-- Input Type Radio Button -->
+         <label for="recommed-1">
+            <img src="../static/great.png" width="100" height="110">
+            <input type="radio" id="mood" style="width: 30px; height: 30px;" value="5" name="mood">
+            아주 좋아요</input>
+         </label>
+         <hr>
+         <label for="recommed-2">
+            <img src="../static/good.png" width="100" height="100">
+            <input type="radio" id="mood" style="width: 30px; height: 30px;" value="4" name="mood">
+            좋아요</input>
+         </label>
+         <hr>
+         <label for="recommed-3">
+            <img src="../static/soso.png" width="100" height="90">
+            <input type="radio" id="mood" style="width: 30px; height: 30px;" value="3" name="mood">
+            괜찮아요</input>
+         </label>
+         <hr>
+         <label for="recommed-4">
+            <img src="../static/poor.png" width="100" height="100">
+            <input type="radio" id="mood" style="width: 30px; height: 30px;" value="2" name="mood">
+            좀 별로에요</input>
+         </label>
+         <hr>
+         <label for="recommed-5">
+            <img src="../static/bad.png" width="100" height="100">
+            <input type="radio" id="mood" style="width: 30px; height: 30px;" value="1" name="mood">
+            나빠요</input>
+         </label>
+         <hr>
+      </div>
+      <input type="file" id="f" required>
+   </form>
+   <button type="submit" value="submit" id="submit" onclick="uploadFile(); final()">
+      제출하기
+   </button>
+   <script>
+      function final() {
+         alert($('#f')[0].files[0])
+         var data = {
+            "mood": $('#mood').val()
+         }
+         var formData = new FormData();
+         formData.append('key', new Blob([JSON.stringify(data)], { type: "application/json" }));         
+         formData.append('file', document.getElementById("f").files[0]);
+   
+         $.ajax({
+            type: 'POST',
+            url: '{{url_for("ajax")}}',
+            data: formData,
+            contentType: false,
+            processData: false,
+            enctype: 'multipart/form-data',
+            success: function (data) {
+               alert('Success' + JSON.stringify(data))
+            }
+         })
+      }
+   </script>
+</body>
+
+</html>
+<!DOCTYPE html>
