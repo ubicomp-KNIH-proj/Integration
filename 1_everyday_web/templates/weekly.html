@@ -15,7 +15,6 @@
         [KNIH] AT SCH Univ.
 	</title>
 	<script type="text/javascript">
-		let ID= '{{value}}'
 		// 팝업창 생성
 		function showPopup() { window.open("pop.html", "a", "width=400, height=300, left=100, top=50"); }
 		var q6_1 = document.getElementById('q6-1')
@@ -396,6 +395,7 @@
 	
 	<script>
 		let q1 = document.getElementById('phonenum');
+		let ID = '{{data}}'
 		function final() {
 			document.getElementById("submit_button").innerHTML = "제출 완료";
 			var formData1 = $('#form1').serializeArray()
@@ -416,8 +416,9 @@
                 success: function(data){
 					// data = JSON.stringify(postdata) //JSON 배열 저장됨
                     console.log(postdata)
+					location.href="http://127.0.0.1:5000/final"
 					// alert('성공! ' + postdatadata.result2['postdata'])
-					alert('성공! ' + JSON.stringify(postdata))
+					// alert('성공! ' + JSON.stringify(postdata))
 					// alert(data)
 					// survey.insert_one(data)
                 },
