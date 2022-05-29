@@ -23,13 +23,13 @@
 				event.preventDefault();
 			}
 			else {
-					alert($('#f')[0].files[0])
 					var sid = '{{sid}}'
 					alert(sid)
 					var data = {
-						"mood": $('#mood').val(),
+						"mood": $('input[name="mood"]:checked').val(),
 						"sid": sid
 					}
+					alert(data.mood)
 					var formData = new FormData();
 					formData.append('data', new Blob([JSON.stringify(data)], { type: "application/json" }));
 					formData.append('filed', document.getElementById("f").files[0]);
@@ -41,7 +41,8 @@
 						processData: false,
 						enctype: 'multipart/form-data',
 						success: function (data) {
-							alert('Success' + JSON.stringify(data))
+							//alert('Success' + JSON.stringify(data))
+							location.href="http://127.0.0.1:5000/final"
 						}
 					})
 				}
@@ -59,7 +60,7 @@
 			<!-- Input Type Radio Button -->
 			<label for="recommed-1">
 				<img src="../static/great.png" width="100" height="110">
-				<input type="radio" id="mood" style="width: 30px; height: 30px;" value="5" name="mood">
+				<input type="radio" id="mood" style="width: 30px; height: 30px;" value="0" name="mood">
 				아주 좋아요</input>
 			</label>
 			<hr>
