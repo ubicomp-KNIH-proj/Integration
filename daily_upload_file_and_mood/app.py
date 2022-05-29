@@ -149,5 +149,9 @@ def moody():
         fs.put(contents, filename=fname)
     return 'file uploaded successfully'
 
+@app.route('/final', methods=['GET', 'POST'])
+def final():
+    return render_template("final.html")
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=2017)
