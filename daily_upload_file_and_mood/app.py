@@ -1,3 +1,4 @@
+import collections
 from dataclasses import field
 from email import contentmanager
 from fileinput import filename
@@ -74,9 +75,8 @@ def login():
     else:
         count = members.find_one({'id': "S000"})
         count = count['count']
-        id = "S123"
+        id = "S000"
         print(count)
-        data = [id, str(count)]
         if count == 0:
             return render_template('daily.html', sid=id, cnt=count)
         elif count %  7 == 0:
@@ -123,7 +123,7 @@ def window_pop():
 
 @app.route('/moody', methods=['POST'])
 def moody():  
-    # rd = dict(request.form)
+    # rd = request.get_data()
     # print(rd)
     data = request.files['data']
     print(data)
@@ -132,16 +132,21 @@ def moody():
     evl = eval(l)
     s_id = evl['sid']
     mood = evl['mood']
-    # sid's collection.insert_one(mood)
-    # 데이터 베이스에 저장하는 코드
+    print(mood)
+    md = { "mood": mood }
+    survey_coll = mongo.db.get_collection(s_id)
+    survey_coll.insert_one(md)
     
-    f = request.files['filed']
-    print(f)
-    contents = f.read()
-    fs = gridfs.GridFS(db)
-    fname = f.name
-    fs.put(contents, filename=fname)
-    # GridFS 저장하는 코드, 얘는 그냥 네이밍으로 때려 박을까..?
+    if 'filed' not in request.files:
+        print("not")
+        pass
+    else:
+        f = request.files['filed']
+        print(f)
+        contents = f.read()
+        fs = gridfs.GridFS(db, s_id)
+        fname = f.name
+        fs.put(contents, filename=fname)
     return 'file uploaded successfully'
 
 if __name__ == '__main__':
