@@ -1,17 +1,9 @@
-import collections
-from dataclasses import field
-from email import contentmanager
-from fileinput import filename
-from importlib.resources import contents
-from unittest import result
 from flask import *
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
 import datetime
 from flask import flash
 from flask import url_for
-from werkzeug.datastructures import ImmutableDict
-import io
 import gridfs
 
 app = Flask(__name__)
@@ -73,12 +65,13 @@ def login():
     if user is None:
         return jsonify({'login':False})
     else:
-        count = members.find_one({'id': "S000"})
-        count = count['count']
-        id = "S000"
-        print(count)
-        if count == 0:
-            return render_template('daily.html', sid=id, cnt=count)
+        member_id = members.find_one({'id': id})
+        print(member_id)
+        count = member_id['count']
+        fcount = member_id['logincount']
+        
+        if count != 0:
+            return render_template('daily.html', sid=id, cnt=count, fcnt=fcount)
         elif count %  7 == 0:
             return render_template('weekly.html', count)
 
@@ -145,8 +138,11 @@ def moody():
         print(f)
         contents = f.read()
         fs = gridfs.GridFS(db, s_id)
-        fname = f.name
+        fname = f.filename
+        members.update_one({'id': s_id}, {'$inc': {'logincount': 1}})
         fs.put(contents, filename=fname)
+        
+    members.update_one({'id': s_id}, {'$inc': {'count': 1}})
     return 'file uploaded successfully'
 
 @app.route('/final', methods=['GET', 'POST'])
