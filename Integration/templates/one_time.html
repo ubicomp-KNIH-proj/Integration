@@ -16,11 +16,12 @@
     </title>
 </head>
 <script type="text/javascript">
+    function showPopup() { window.open("pop.html", "a", "width=400, height=300, left=100, top=50"); }
     // 활성화 비활성화
     $(document).ready(function () {
         $('.activation').on('click', function () {
             var valueCheck = $('.activation:checked').val(); // 체크된 Radio 버튼의 값을 가져옵니다.
-            if (valueCheck == 'yes') {
+            if (valueCheck == '1') {
                 $('.active').attr('disabled', false); // 과일 종류를 입력하는 input 을 활성화합니다.
                 $('.active').focus(); // 과일 종류를 입력하는 input 에 커서를 이동시킵니다.
             } else {
@@ -28,7 +29,23 @@
                 $("input:radio[name='q9']").prop('checked', false)
             }
         });
+        $('#submit_button').on('click', function() {
+            // if($('#q5-1').val().length==0) {
+            //     alert("문제 1번을 입력하세요.")
+            // }
+            var q2 = document.getElementsByName("q2");
+            if(!q2[0].checked) {
+                alert("2번을 입력해주세요.")
+                q2[0].focus()
+                return false
+            }
+        })
     });
+    function limitNumber(el, maxlength) {
+        if (el.value.length > maxlength) {
+            el.value = el.value.substr(0, maxlength);
+        }
+    }
 </script>
 <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <body>
@@ -40,9 +57,9 @@
 			<label for="q1" id="label-q1">
                 1. 핸드폰 번호를 입력해주세요
             </label>
-            <input type="tel" id="phonenum" maxlength="3" onkeyup="moveCursora(this)" placeholder="010" name="q1-1" /> -
-            <input type="tel" id="phonenum1" maxlength="4" onkeyup="moveCursorb(this)" placeholder="1234" name="q1-2"/> -
-            <input type="tel" id="phonenum2" maxlength="4" placeholder="5678" name="q1-3"/>
+            <input type="tel" id="phonenum" maxlength="3" onkeyup="moveCursora(this)" placeholder="010" name="q1-1" required/> -
+            <input type="tel" id="phonenum1" maxlength="4" onkeyup="moveCursorb(this)" placeholder="1234" name="q1-2" required/> -
+            <input type="tel" id="phonenum2" maxlength="4" placeholder="5678" name="q1-3" required/>
         </div>
         <br>
 
@@ -51,7 +68,7 @@
                 2. 스마트폰 종류를 선택해주세요
             </label>
             <label for="q2-1">
-                <input type="radio" id="q2-1" name="q2" value="1">갤럭시</input>
+                <input type="radio" id="q2-1" name="q2" value="1" checked>갤럭시</input>
             </label>
             <label for="q2-2">
                 <input type="radio" id="q2-2" name="q2" value="2">아이폰</label>
@@ -64,7 +81,7 @@
                 3. 스마트밴드 종류를 선택해주세요
             </label>
             <label for="q3-1">
-                <input type="radio" id="q3-1" name="q3" value="1">갤럭시워치</input>
+                <input type="radio" id="q3-1" name="q3" value="1" checked>갤럭시워치</input>
             </label>
             <label for="q3-2">
                 <input type="radio" id="q3-2" name="q3" value="2">핏빗</label>
@@ -76,7 +93,7 @@
 			<label for="q4" id="label-q4">
             4. 출생년도를 입력해주세요
             </label>
-            <input type="number" id="age" maxlength="4" placeholder="1999" name="q4" />
+            <input type="number" id="age" maxlength="4" placeholder="1999" name="q4" oninput="limitNumber(this, 4)" required/>
         </div>
         <br>
 
@@ -85,7 +102,7 @@
                 5. 성별을 선택해주세요
             </label>
             <label for="q5-1">
-                <input type="radio" id="q5-1" name="q5" value="1">남자</input>
+                <input type="radio" id="q5-1" name="q5" value="1" checked>남자</input>
             </label>
             <label for="q5-2">
                 <input type="radio" id="q5-2" name="q5" value="2">여자</label>
@@ -98,7 +115,7 @@
                 6. 신장을 선택해주세요
             </label>
 			<label for="q6-1">
-                <input  type="radio" id="q6-1" name="q6" value="1"/>
+                <input  type="radio" id="q6-1" name="q6" value="1" checked/>
                 150 이하</input>
             </label>
 			<label for="q6-2">
@@ -125,7 +142,7 @@
                 7. 체중을 선택해주세요
             </label>
 			<label for="q7-1">
-                <input  type="radio" id="q7-1" name="q7" value="1"/>
+                <input  type="radio" id="q7-1" name="q7" value="1" checked/>
                 50 이하</input>
             </label>
 			<label for="q7-2">
@@ -152,10 +169,10 @@
                 8. 당신은 큰소리로 코를 곤다는 말을 들은적이 있습니까?
             </label>
             <label for="q8-1">
-                <input type="radio" class="activation" name="q8" id="q8-1" value="yes">예</input>
+                <input type="radio" class="activation" name="q8" id="q8-1" value="1" checked>예</input>
             </label>
             <label for="q8-2">
-                <input type="radio" class="activation" name="q8" id="q8-2" value="no">아니오</input>
+                <input type="radio" class="activation" name="q8" id="q8-2" value="2">아니오</input>
             </label>    
         </div>
         <br>
@@ -165,7 +182,7 @@
                 9. 당신은 얼마나 자주 코를 고십니까?
             </label>
 			<label for="q9-1">
-                <input type="radio" class="active" name="q9" id="q9-1" value="1" />
+                <input type="radio" class="active" name="q9" id="q9-1" value="1"/>
                 거의 없음</input>
             </label>
 			<label for="q9-2">
@@ -193,7 +210,7 @@
             </label>
             <input type="button" value="상세 보기" onclick="showPopup();" />
 			<label for="q10-1">
-                <input type="radio" name="q10" id="q10-1" value="1"/>
+                <input type="radio" name="q10" id="q10-1" value="1" checked/>
                 비활동적</input>
             </label>
 			<label for="q10-2">
@@ -221,7 +238,7 @@
                 1. 현재 귀하의 건강상태가 어떻다고 생각하십니까?
             </label>
 			<label for="mq1-1">
-                <input type="radio" name="mq1" id="mq1-1" name="mq1" value="5"/>
+                <input type="radio" name="mq1" id="mq1-1" name="mq1" value="5" checked/>
                 매우 건강하다</input>
             </label>
 			<label for="mq1-2">
@@ -247,7 +264,7 @@
                 2. 현재 귀하의 경제상황이 어떻다고 생각하십니까?
             </label>
 			<label for="mq2-1">
-                <input type="radio" name="mq2" id="mq2-1" value="4" />
+                <input type="radio" name="mq2" id="mq2-1" value="4" checked/>
                 여유가 있다
             </label>
 			<label for="mq2-2">
@@ -270,19 +287,19 @@
                 3. 최근 안절부절 못하거나 성질이 심술궂게 되어진다
             </label>
 			<label for="mq3-1">
-                <input type="radio"name="mq3" id="mq3-1" value="4"/>
+                <input type="radio"name="mq3" id="mq3-1" value="1" checked/>
                 전혀 그렇지 않다
             </label>
 			<label for="mq3-2">
-                <input type="radio" name="mq3" id="mq3-2" value="3"/>
+                <input type="radio" name="mq3" id="mq3-2" value="2"/>
                 약간 그렇다
             </label>
 			<label for="mq3-3">
-                <input type="radio" name="mq3" id="mq3-3" value="2"/>
+                <input type="radio" name="mq3" id="mq3-3" value="3"/>
                 대부분 그렇다
             </label>
 			<label for="mq3-4">
-                <input type="radio" name="mq3" id="mq3-4" value="1"/>
+                <input type="radio" name="mq3" id="mq3-4" value="4"/>
                 항상 그렇다
             </label>
         </div>
@@ -292,19 +309,19 @@
                 4. 최근 불행하고 우울감을 느낀다
             </label>
 			<label for="mq4-1">
-                <input type="radio" name="mq4" id="mq4-1" value="4"/>
+                <input type="radio" name="mq4" id="mq4-1" value="1" checked/>
                 전혀 그렇지 않다
             </label>
 			<label for="mq4-2">
-                <input type="radio" name="mq4" id="mq4-2" value="3"/>
+                <input type="radio" name="mq4" id="mq4-2" value="2"/>
                 약간 그렇다
             </label>
 			<label for="mq4-3">
-                <input type="radio" name="mq4" id="mq4-3" value="2"/>
+                <input type="radio" name="mq4" id="mq4-3" value="3"/>
                 대부분 그렇다
             </label>
 			<label for="mq4-4">
-                <input type="radio" name="mq4" id="mq4-4" value="1"/>
+                <input type="radio" name="mq4" id="mq4-4" value="4"/>
                 항상 그렇다
             </label>
         </div>
@@ -315,19 +332,19 @@
                 5. 최근 나 자신에 대한 신뢰감이 없어지고 있다
             </label>
 			<label for="mq5-1">
-                <input type="radio" name="mq5" id="mq5-1" value="4"/>
+                <input type="radio" name="mq5" id="mq5-1" value="1" checked/>
                 전혀 그렇지 않다
             </label>
 			<label for="mq5-2">
-                <input type="radio" name="mq5" id="mq5-2" value="3"/>
+                <input type="radio" name="mq5" id="mq5-2" value="2"/>
                 약간 그렇다
             </label>
 			<label for="mq5-3">
-                <input type="radio" name="mq5" id="mq5-3" value="2"/>
+                <input type="radio" name="mq5" id="mq5-3" value="3"/>
                 대부분 그렇다
             </label>
 			<label for="mq5-4">
-                <input type="radio" name="mq5" id="mq5-4" value="1"/>
+                <input type="radio" name="mq5" id="mq5-4" value="4"/>
                 항상 그렇다
             </label>
         </div>
@@ -337,20 +354,20 @@
                 6. 최근 모든 것을 고려해 볼 때 행복감을 느낀다
             </label>
             <label for="mq6-1">
-                <input type="radio" name="mq6" id="mq6-1" value="4" />
+                <input type="radio" name="mq6" id="mq6-1" value="1" checked/>
                 전혀 그렇지 않다
             </label>
             <label for="mq6-2">
-                <input type="radio" name="mq6" id="mq6-2" value="3"/>
+                <input type="radio" name="mq6" id="mq6-2" value="2"/>
                 약간 그렇다
             </label>
             </label>
             <label for="mq6-3">
-                <input type="radio" name="mq6" id="mq6-3" value="2"/>
+                <input type="radio" name="mq6" id="mq6-3" value="3"/>
                 대부분 그렇다
             </label>
             <label for="mq6-4">
-                <input type="radio" name="mq6" id="mq6-4" value="1"/>
+                <input type="radio" name="mq6" id="mq6-4" value="4"/>
                 항상 그렇다
             </label>
         </div>
@@ -361,19 +378,19 @@
                 7. 최근 세상에 홀로 있는 듯한 외로움을 느낀다
             </label>
 			<label for="mq7-1">
-                <input type="radio" name="mq7" id="mq7-1" value="4"/>
+                <input type="radio" name="mq7" id="mq7-1" value="1" checked/>
                 전혀 그렇지 않다
             </label>
 			<label for="mq7-2">
-                <input type="radio" name="mq7" id="mq7-2" value="3"/>
+                <input type="radio" name="mq7" id="mq7-2" value="2"/>
                 약간 그렇다
             </label>
 			<label for="mq7-3">
-                <input type="radio" name="mq7" id="mq7-3" value="2"/>
+                <input type="radio" name="mq7" id="mq7-3" value="3"/>
                 대부분 그렇다
             </label>
 			<label for="mq7-4">
-                <input type="radio" name="mq7" id="mq7-4" value="1"/>
+                <input type="radio" name="mq7" id="mq7-4" value="4"/>
                 항상 그렇다
             </label>
         </div>
@@ -394,7 +411,6 @@
                 ID, '1_formData1':formData1, '1_formData2':formData2
             }
             console.log(postdata)
-
             $.ajax({
                 type: 'POST',
                 url: '{{url_for("ajax")}}',
@@ -402,9 +418,11 @@
                 dataType : 'JSON',
                 contentType: "application/json",
                 success: function(data){
+
                     // data = JSON.stringify(postdata) //JSON 배열 저장됨
                     console.log(postdata)
-                    location.href="http://192.168.0.18:2019/final"
+                    // location.href="http://192.168.0.18:2019/final"
+                    location.href="http://127.0.0.1:5000/final"
                     // alert('성공! ' + postdatadata.result2['postdata'])
                     // alert('성공! ' + JSON.stringify(postdata))
                     // alert(data)
