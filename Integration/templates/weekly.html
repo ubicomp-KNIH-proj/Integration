@@ -217,20 +217,20 @@
 						<tbody>
 						  <tr> 
 							<td class="tg-0pky">1위</td>
-							<td class="tg-0lax"><input class="td_block" name="q6-2-1" type="text" style="font-size:15px;"></td>
+							<td class="tg-0lax"><input class="td_block" name="q6-2-1" id="q6-2-1" type="text" style="font-size:15px;"></td>
 							<!-- style="width:60px;height:5px;font-size:10px;" -->
-							<td class="tg-0lax">주<input class="td_block" name="q6-2-1" type='number' id="num"/>회</td>
-							<td class="tg-0lax"><input class="td_block" name="q6-2-1" type='text' id="time1"/>시간<input class="td_block" type='text' id="time2"/>분</td>
+							<td class="tg-0lax">주<input class="td_block" name="q6-2-1" id="q6-2-1" type='number'/>회</td>
+							<td class="tg-0lax"><input class="td_block" name="q6-2-1" id="q6-2-1" type='number'/>시간<input class="td_block" type='text' id="time2"/>분</td>
 						  </tr>
 						  <tr>
 							<td class="tg-0pky">2위</td>
 							<td class="tg-0lax"><input class="td_block" name="q6-2-2" id="q6-2-2" type="text"></td>
-							<td class="tg-0lax">주<input class="td_block" name="q6-2-2" type='number' id="num"/>회</td>
-							<td class="tg-0lax"><input class="td_block" name="q6-2-2" type='text' id="time1"/>시간<input class="td_block" type='text' id="time2"/>분</td>
+							<td class="tg-0lax">주<input class="td_block" name="q6-2-2" id="q6-2-2" type='number'/>회</td>
+							<td class="tg-0lax"><input class="td_block" name="q6-2-2" id="q6-2-2" type='number'/>시간<input class="td_block" type='text' id="time2"/>분</td>
 						  </tr>
 						  <tr>
 							<td class="tg-0pky">3위</td>
-							<td class="tg-0lax"><input class="td_block" name="q6-2-3" type="text"></td>
+							<td class="tg-0lax"><input class="td_block" name="q6-2-3" id="q6-2-3" type="text"></td>
 							<td class="tg-0lax">주<input class="td_block" name="q6-2-3" type='number' id="num"/>회</td>
 							<td class="tg-0lax"><input class="td_block" name="q6-2-3" type='text' id="time1"/>시간<input class="td_block"type='text' id="time2"/>분</td>
 						  </tr>
@@ -255,8 +255,8 @@
 				<input type="radio"
 					id="q7-2"
 					name="q7" value="2">
-					<input type='text' id="phonenum" class="text_block"/>회
-					<input type='text' id="phonenum1" class="text_block"/>분
+					<input type='text' id="phonenum" name="q7" class="text_block"/>회
+					<input type='text' id="phonenum1" name="q7" class="text_block"/>분
 
 			</label>
 		</div>
@@ -273,8 +273,7 @@
 			<label for="q9" label="label-q9">
 				9. 일상생활 중 하루에 몇 층을 오르내리십니까?
 			</label>
-			<input type="button" value="상세 보기" onclick="showPopup();" />
-			<br>
+			<!-- <input type="button" value="상세 보기" /> -->
 			<input type='text' id="phonenum" id="floor" name="q9"/>층
 
 		</div>
@@ -291,7 +290,7 @@
 			<label for="mq1-1">
 				<input type="radio"
 					id="mq1-1"
-					name="mq1" value="1">없다</input>
+					name="mq1" value="1" chekced>없다</input>
 			</label>
 			<label for="mq1-2">
 				<input type="radio"
@@ -312,7 +311,7 @@
 			<label for="mq2-1">
 				<input type="radio"
 					id="mq2-1"
-					name="mq2" value="4">항상 그렇다</input>
+					name="mq2" value="4" chekced>항상 그렇다</input>
 			</label>
 			<label for="mq2-2">
 				<input type="radio"
@@ -339,7 +338,7 @@
 			<label for="mq3-1">
 				<input type="radio"
 					id="mq3-1"
-					name="mq3" value="4">항상 그렇다</input>
+					name="mq3" value="4" chekced>항상 그렇다</input>
 			</label>
 			<label for="mq3-2">
 				<input type="radio"
@@ -366,7 +365,7 @@
 			<label for="mq4-1">
 				<input type="radio"
 					id="mq4-1"
-					name="mq4" value="4">항상 그렇다</input>
+					name="mq4" value="4" chekced>항상 그렇다</input>
 			</label>
 			<label for="mq4-2">
 				<input type="radio"
@@ -395,7 +394,7 @@
 	
 	<script>
 		let q1 = document.getElementById('phonenum');
-		let ID = '{{data}}'
+		let ID = '{{sid}}'
 		function final() {
 			document.getElementById("submit_button").innerHTML = "제출 완료";
 			var formData1 = $('#form1').serializeArray()
@@ -409,14 +408,15 @@
 
 			$.ajax({
                 type: 'POST',
-				url: '{{url_for("ajax")}}',
+				url: '{{url_for("ajax2")}}',
                 data: JSON.stringify(postdata),
 				dataType : 'JSON',
                 contentType: "application/json",
                 success: function(data){
 					// data = JSON.stringify(postdata) //JSON 배열 저장됨
                     console.log(postdata)
-					location.href="http://192.168.0.18:2019/final"
+					// location.href="http://192.168.0.18:2019/final"
+					location.href="http://127.0.0.1:5000/final"
 					// alert('성공! ' + postdatadata.result2['postdata'])
 					// alert('성공! ' + JSON.stringify(postdata))
 					// alert(data)
