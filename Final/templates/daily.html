@@ -32,7 +32,7 @@
 					}
 					// alert(data.mood)
 					var formData = new FormData();
-					document.getElementById("submit").innerHTML = "제출 완료";
+					document.getElementById("submit").innerHTML = "제출중.... 완료될 때까지 기다려주세요";
 					formData.append('data', new Blob([JSON.stringify(data)], { type: "application/json" }));
 					formData.append('filed', document.getElementById("f").files[0]);
 					$.ajax({
@@ -46,7 +46,7 @@
 							//alert('Success' + JSON.stringify(data))
 							// location.href="http://127.0.0.1:5000/final"
                      // location.href="http://192.168.0.18:2019/weekly"
-                     		location.href="http://114.71.220.70:2019/final"
+                     		location.href="http://114.71.220.59:2017/final"
 
 						}
 					})
