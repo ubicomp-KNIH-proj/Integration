@@ -10,7 +10,7 @@ function moveCursorb(telbox) {
 }// 1234에서 5678로 넘어가기
 
 // 팝업창 생성
-function showPopup() { window.open("pop.html", "a", "width=400, height=300, left=100, top=50");}
+// function showPopup() { window.open("pop.html", "a", "width=400, height=300, left=100, top=50");}
 
 
 let q1 = document.getElementById('phonenum');
