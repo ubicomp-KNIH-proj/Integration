@@ -154,7 +154,11 @@ def weekly():
     # return render_template('daily.html', sid=x_survey)
 
     return jsonify(render_template("daily.html", sid=x_survey, cnt=count, fcnt=fcount))
-
+    
+@app.route('/pop.html', methods=['GET'])
+def window_pop():
+    return render_template("pop.html")
     
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=2019)
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=2017)
